@@ -1,41 +1,74 @@
-# SAP-samples/repository-template
-This default template for SAP Samples repositories includes files for README, LICENSE, and .reuse/dep5. All repositories on github.com/SAP-samples will be created based on this template.
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/ui5-advanced-exercises-codejam)](https://api.reuse.software/info/github.com/SAP-samples/ui5-advanced-exercises-codejam)
 
-# Containing Files
+# SAP CodeJam - Advanced UI5
 
-1. The LICENSE file:
-In most cases, the license for SAP sample projects is `Apache 2.0`.
+This repository contains the material for SAP CodeJam events on advanced UI5 topics. Please note that there is also a more beginner-friendly SAP CodeJam on UI5 available: [ui5-exercises-codejam](https://github.com/SAP-Samples/ui5-exercises-codejam)
 
-2. The .reuse/dep5 file: 
-The [Reuse Tool](https://reuse.software/) must be used for your samples project. You can find the .reuse/dep5 in the project initial. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository.
+Please check the [prerequisites](/chapters/00-prep-dev-environment/readme.md#1-prerequisites) before the event an make sure you meet them.
 
-3. The README.md file (this file):
-Please edit this file as it is the primary description file for your project. You can find some placeholder titles for sections below.
+## Overview
 
-# [Title]
-<!-- Please include descriptive title -->
+The material in this repository builds on top of the [core principles of UI5](https://github.com/SAP-Samples/ui5-exercises-codejam), introducing you to more advanced topics and techniques. This repository is a step-by-step guide explaining how build apply these topics and techniques to an existing UI5 application to improve it and add more features. The finished app is a ... 
 
-<!--- Register repository https://api.reuse.software/register, then add REUSE badge:
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
--->
+![The finished app](/finished-app.png)
 
-## Description
-<!-- Please include SEO-friendly description -->
+The finished application already exists in the [...](...) directory, but we want to rebuild it from scratch step by step. You can compare the finished app with your version in case you have issues along the way.
 
-## Requirements
+After reading all chapters and following the instructions, you will be able to... 
 
-## Download and Installation
+## Previous Knowledge
 
-## Known Issues
-<!-- You may simply state "No known issues. -->
+The material in this repository aims to be as beginner friendly as possible, but covers more advanced topics and techniques about UI5. If you are totally new to UI5, the other [more basic SAP CodeJam on UI5](https://github.com/SAP-Samples/ui5-exercises-codejam) might be better suited. You will have the best learning experience with this repository if you have previously built UI5 applications, understand its fundamental concepts (for example its model-view-controller architecture), its development tools (the [UI5 Tooling](https://www.npmjs.com/package/@ui5/cli)), and now want to deepen your knowledge and improve your skills.
 
-## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
- 
-For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
+The material includes additional explanations in collapsable sections (see example below), whenever a concept is used that seasoned developers are probably already familiar with, but beginners might not be. You can decide for yourself whether you want to read or skip them.
+
+See this example:
+
+<details>
+<summary>What is SAPUI5? 💬</summary>
+
+<br>
+
+> SAPUI5 is an HTML5 framework for creating cross-platform, enterprise-grade web applications in an efficient way.
+>
+> See this [blog post](https://blogs.sap.com/2021/08/23/what-is-sapui5/) for more information.
+
+</details>
+
+## Material Organization
+
+The material consists of a series of chapters, each in their own directory. The chapters build on top of each other and are meant to be completed in the given order. Each of the [chapters](#chapters) has its own 'readme' file with explanations, instructions, code samples and screen shots. From a session flow perspective, we are taking a "coordinated" approach:
+
+The instructor will set you off on the first chapter. Do not proceed to the next chapter until the instructor tells you to do so. If you finish a chapter before others, there are some questions at the end of each chapter for you to ponder.
+
+> The exercises are written in a conversational way - this is so that they have enough context and information to be completed outside the hands-on session itself. To help you navigate and find what you have to actually do next, there are pointers like this ➡️ throughout that indicate the things you have to actually do (as opposed to just read for background information).
+
+## Chapters
+
+- [00 - Preparing the Development Environment](/chapters/00-prep-dev-environment/)
+
+## SAPUI5 vs. OpenUI5
+
+You will often read about either SAPUI5 or OpenUI5 when working with the framework. The main difference between the two is the license. Whereas SAPUI5 requires a license and is integrated into a lot of SAP products, OpenUI5 is open source and generally available under an Apache 2.0 license. SAPUI5 includes more libraries than OpenUI5, but the latter still contains all central functionality and most commonly used control libraries are identical in both deliveries.
+
+The material in this repository would work with both deliveries, but uses OpenUI5. For the sake of simplicity and to indicate that the material would work with SAPUI5, too, the material simply refers to the framework as 'UI5'.
+
+You can find more information about this in the [SAPUI5 Documentation](https://sapui5.hana.ondemand.com/#/topic/5982a9734748474aa8d4af9c3d8f31c0).
+
+## Feedback
+
+If you can spare a couple of minutes at the end of the session, please help the [author](https://github.com/nicoschoenteich) improve for next time by providing some feedback.
+
+Simply use this [template](https://github.com/SAP-samples/ui5-advanced-exercises-codejam/issues/new?assignees=&labels=feedback&template=session-feedback-template.md&title=Session%20Feedback) link to create a special "feedback" issue, and follow the instructions in there.
+
+Thank you!
+
+## Support
+
+Support for the content in this repository is available during SAP CodeJam events, for which this content has been designed. Otherwise, this content is provided 'as-is' with no other support.
 
 ## Contributing
 If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
 ## License
-Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
+Copyright (c) 2022 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](/LICENSE) file.

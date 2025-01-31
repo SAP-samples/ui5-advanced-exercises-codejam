@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/javascript-node
+{
+	"name": "SAP UI5 CodeJam Exercises Devcontainer",
+	"build": {
+		"dockerfile": "Dockerfile",
+		// Update 'VARIANT' to pick a Node version: 12, 14, 16
+		"args": { "VARIANT": "18" }
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"sapse.vscode-cds",
+		"sapse.sap-ux-fiori-tools-extension-pack",
+        	"hookyqr.beautify",
+        	"yzhang.markdown-all-in-one",
+        	"mechatroner.rainbow-csv", 
+        	"saposs.sap-hana-driver-for-sqltools",
+        	"saposs.xml-toolkit"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [ 4004 ],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "npm install",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "node"
+}
