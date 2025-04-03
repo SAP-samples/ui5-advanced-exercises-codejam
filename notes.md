@@ -1,0 +1,42 @@
+- local cap server using dependency (workspaces)
+- devtoberfest recording
+  - TS
+  - 
+  
+- testing (ui5-test-runner)
+- first 3 or 4 chapter as tutorial, last 3 chapters as open questions/tasks
+
+SAP CodeJam - Advanced UI5
+
+This SAP CodeJam introduces you to more advanced topics and techniques around UI5, such as TypeScript, a monorepository setup (incl. CAP server), OData V4 caveats, consuming third party packages, creating your own UI5 controls and libraries, and testing. You can look forward to a full day of learning, interesting discussions, and plenty of time for hacking. You will have the best learning experience if you have previously built UI5 application and already have a good understanding of its basic concepts.
+
+The event will be run by Peter Muessig (Chief Development Architect) and Nico Schoenteich (Developer Advocate).
+
+
+# Chapter 1
+
+- explain TS and general project setup
+
+- yo easy-ui5 project project
+- yo easy-ui5 project cap
+- yo easy-ui5 project model
+
+# Chapter 2
+
+- add table in xml view
+- add TS controller code for sorting
+- explain UI5 specific type syntax: `Control$Event`
+- `async await` not in lifecycle hooks, only `.then().catch()` allowed
+- show some OData V4 goodie, such as deferred action binding or similar
+
+# Chapter 3
+
+- yo easy-ui5 ts-library (compatible with project generator?)
+- use ui5-tooling-modules to include third party package
+
+
+- debugging
+
+
+question: how well does the TS language server handle UI5 TS?
+
