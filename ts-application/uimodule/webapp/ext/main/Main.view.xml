@@ -1,0 +1,9 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros"
+    xmlns:html="http://www.w3.org/1999/xhtml" controllerName="uimodule.ext.main.Main" xmlns:cc="uimodule.ext.control">
+	<Page id="Main" title="{i18n>MainTitle}">
+		<List items="{path: '/Products', parameters: { '$select': '*' }}" >
+			<StandardListItem title="{title}" press=".onFlyToProduct" type="Navigation" />
+		</List>
+		<cc:Supermarket id="supermarket" />
+    </Page>
+</mvc:View>

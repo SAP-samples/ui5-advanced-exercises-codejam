@@ -1,0 +1,18 @@
+{
+  "generator-ui5-project": {
+    "namespaceUI5": "codejam",
+    "projectName": "supermarket",
+    "uimoduleName": "uimodule",
+    "enableFPM": true,
+    "enableTypescript": true,
+    "enableFioriTools": false,
+    "platform": "Static webserver",
+    "ui5Libs": "Local resources (SAPUI5)",
+    "newDir": false,
+    "initRepo": false,
+    "projectId": "codejam.supermarket",
+    "uimodules": [
+      "uimodule"
+    ]
+  }
+}

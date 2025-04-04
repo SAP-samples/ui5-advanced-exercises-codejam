@@ -3,6 +3,7 @@
 	xmlns="sap.m"
 	xmlns:cc="myui5app.control">
     <Page id="page" title="{i18n>title}">
-		<cc:Supermarket />
+		<cc:Supermarket id="supermarket" x="20.69" y="10.12" z="-28.03" />
+		<Button text="fly to coke" press="onFly" />
     </Page>
 </mvc:View>
