@@ -96,15 +96,15 @@ export default class Supermarket extends Control {
 	static renderer = {
 		apiVersion: 4,
 		render: (rm: RenderManager, control: Supermarket) => {
-			rm.openStart("div")
-			rm.style("position", "relative")
-			rm.style("top", "0")
-			rm.style("left", "0")
-			rm.style("width", "100%")
-			rm.style("height", "100%")
-			rm.style("display", "flex")
-			rm.style("justify-content", "center")
-			rm.openEnd()
+			// rm.openStart("div")
+			// rm.style("position", "relative")
+			// rm.style("top", "0")
+			// rm.style("left", "0")
+			// rm.style("width", "100%")
+			// rm.style("height", "100%")
+			// rm.style("display", "flex")
+			// rm.style("justify-content", "center")
+			// rm.openEnd()
 			rm.openStart("canvas", control)
 			rm.style("height", "100%")
 			rm.openEnd()
@@ -121,7 +121,7 @@ export default class Supermarket extends Control {
 			rm.openEnd()
 			rm.renderControl(control.getAggregation("_busyIndicator") as Control)
 			rm.close("div")
-			rm.close("div")
+			// rm.close("div")
 		}
 	}
 }

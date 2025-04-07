@@ -40,3 +40,4 @@ The event will be run by Peter Muessig (Chief Development Architect) and Nico Sc
 
 question: how well does the TS language server handle UI5 TS?
 
+https://www.cgtrader.com/free-3d-models/exterior/cityscape/convenience-store-f3032ffa-c5e7-4af4-af97-d9c912c7718a

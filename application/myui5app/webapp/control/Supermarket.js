@@ -11,9 +11,9 @@ sap.ui.define([
 	return SuperControl.extend("myui5app.control.Supermarket", {
 		metadata: {
 			properties: {
-				x: { type: "float" },
-				y: { type: "float" },
-				z: { type: "float" }
+				x: { type: "float", default: 20.69 },
+				y: { type: "float", default: 10.12 },
+				z: { type: "float", default: -28.03}
 			},
 			aggregations: {},
 		},

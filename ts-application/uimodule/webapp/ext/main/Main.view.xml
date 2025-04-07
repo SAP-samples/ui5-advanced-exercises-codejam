@@ -4,6 +4,8 @@
 		<List items="{path: '/Products', parameters: { '$select': '*' }}" >
 			<StandardListItem title="{title}" press=".onFlyToProduct" type="Navigation" />
 		</List>
-		<cc:Supermarket id="supermarket" />
+		<FlexBox justifyContent="Center" height="50%">
+			<cc:Supermarket id="supermarket" />
+		</FlexBox>
     </Page>
 </mvc:View>
