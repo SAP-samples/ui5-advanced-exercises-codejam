@@ -1,0 +1,47 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:macros="sap.fe.macros"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="uimodule.ext.main.Main"
+	xmlns:cc="uimodule.ext.control">
+	<Page id="Main" showHeader="false" class="sapUiContentPadding">
+	<!-- <f:Shellbar title="Supermarket" /> -->
+		<VBox alignItems="Center" width="100%">
+			<!-- <VBox> -->
+			<Title
+				level="H2"
+				titleStyle="H2"
+				text="What are you looking for today?"
+				class="sapUiMediumMarginTop" />
+			<Panel class="sapUiMediumMarginTop">
+				<SearchField
+					placeholder="Find products"
+					liveChange=".onSearchProducts"
+					width="480px" />
+			</Panel>
+			<!-- </VBox> -->
+			<HBox
+				id="products"
+				items="{path: '/Products', parameters: { '$select': '*' }}"
+				class="sapUiMediumMarginTop"
+				wrap="Wrap"
+				justifyContent="Center">
+				<GenericTile
+					header="{title}"
+					subheader="{category_name}"
+					press=".onFlyToProduct"
+					class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
+					<TileContent>
+						<ImageContent src="{image}" />
+					</TileContent>
+				</GenericTile>
+			</HBox>
+			<!-- <FlexBox class="fixed"> -->
+				<cc:Supermarket id="supermarket" />
+			<!-- </FlexBox> -->
+		</VBox>
+	</Page>
+</mvc:View>

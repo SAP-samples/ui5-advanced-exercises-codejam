@@ -1,5 +1,5 @@
 _schema-version: "3.2"
-ID: com.myorg.myui5project
+ID: codejam.supermarket
 version: 0.0.1
 
 build-parameters:
@@ -10,7 +10,7 @@ build-parameters:
         - npm run build:workspaces
 
 modules:
-  - name: com.myorg.myui5project
+  - name: codejam.supermarket
     type: staticfile
     path: dist
     parameters:
