@@ -44,16 +44,16 @@ The command created new directory for the cloned repository.
 
 ### 4. Navigate into the newly created directory
 
-We want to navigate into the `.../` directory inside newly created directory, as this is where we will build our application.
+We want to navigate into the newly created `ui5-advanced-exercises-codejam/` directory.
 
 ➡️ Execute the following command in the same terminal session:
 
 ```bash
-cd ui5-advanced-exercises-codejam/...
+cd ui5-advanced-exercises-codejam/
 ```
 
 ### 5. Open the directory
 
 ➡️ Open the directory in the code editor of your choice, depending on the option you chose in [step 1](#1-prerequisites).
 
-Continue to [Chapter 01 - ...](/chapters/...)
+Continue to [Chapter 01 - Generating a Full-Stack Project](/chapters/01-generating-full-stack-project/)

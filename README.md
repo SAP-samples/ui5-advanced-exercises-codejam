@@ -46,6 +46,9 @@ The instructor will set you off on the first chapter. Do not proceed to the next
 ## Chapters
 
 - [00 - Preparing the Development Environment](/chapters/00-prep-dev-environment/)
+- [01 - Generating a Full-Stack Project](/chapters/01-generating-full-stack-project/)
+- [02 - Preparing the CAP Server](/chapters/02-preparing-cap-server/)
+- [03 - Adding Content to the UI5 Application](/chapters/03-adding-content-to-ui5-app/)
 
 ## SAPUI5 vs. OpenUI5
 

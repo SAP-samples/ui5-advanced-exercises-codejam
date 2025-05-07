@@ -19,7 +19,8 @@ The event will be run by Peter Muessig (Chief Development Architect) and Nico Sc
 
 - yo easy-ui5 project project
 - yo easy-ui5 project cap
-- yo easy-ui5 project model
+
+- difference between project generator and ts-app
 
 # Chapter 2
 
@@ -29,14 +30,43 @@ The event will be run by Peter Muessig (Chief Development Architect) and Nico Sc
 - `async await` not in lifecycle hooks, only `.then().catch()` allowed
 - show some OData V4 goodie, such as deferred action binding or similar
 
+- add stock and checkout process
+- add stock to product tiles
+
 # Chapter 3
 
 - yo easy-ui5 ts-library (compatible with project generator?)
 - use ui5-tooling-modules to include third party package
 
+# Chapter 4
 
 - debugging
+- include bug that attendees have to find anf fix
 
+
+# Chapter 5
+
+- testing
+
+# Chapter 6 
+
+- stock visualization
+- attendees to create own chart library
+- gives link to devtoberfest recording as hint
+
+# Chapter 7 
+
+- deployment to Application Frontend Service 
+
+
+# Ideas
+
+LM Studio + web comoponents
+speech recognition to find products
+
+
+
+---
 
 question: how well does the TS language server handle UI5 TS?
 
