@@ -18,6 +18,8 @@ Our CAP server by default was generated including a bookshop data model. We will
 ```cds
 namespace supermarket;
 
+using { cuid, managed } from '@sap/cds/common';
+
 entity Products {
     key ID       : Integer;
         title    : String;
@@ -31,6 +33,10 @@ entity Categories {
     key name     : String;
         products : Association to many Products;
 }
+
+entity Ratings: cuid, managed {
+	rating: Integer @assert.range: [1,5];
+}
 ```
 
 ### 2. Add sample data
@@ -41,9 +47,9 @@ We will add sample data to our CAP server, so that we can test the UI5 app later
 
 **supermarket-Products.csv**
 ```csv
-ID,title,category_name,stock,position
-1,Coca Cola,Beverages,100,"[{""x"": 9.9,""y"": 1.99,""z"": -5.92},{""x"":9.27,""y"":0.73,""z"":-0.31}]"
-2,Cheerios,Cereal,500,"[{""x"":-1.76,""y"":1.72,""z"":-5.09},{""x"":-4.66,""y"":2.47,""z"":-0.08}]"
+ID,title,category_name,stock,position,image
+1,Coca Cola,Beverages,100,"[{""x"": 9.9,""y"": 1.99,""z"": -5.92},{""x"":9.27,""y"":0.73,""z"":-0.31}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/1.png
+2,Cheerios,Cereal,500,"[{""x"":-1.76,""y"":1.72,""z"":-5.09},{""x"":-4.66,""y"":2.47,""z"":-0.08}]",https://codejam-supermarket-image-server.cfapps.us10.hana.ondemand.com/2.png
 ```
 
 **supermarket-Categories.csv**
@@ -51,6 +57,13 @@ ID,title,category_name,stock,position
 name
 Beverages
 Cereal
+```
+
+**supermarket-Ratings.csv**
+```csv
+rating
+4
+5
 ```
 
 ### 3. Add a service definition
@@ -65,6 +78,12 @@ using supermarket from '../db/schema';
 service CatalogService {
     @readonly
     entity Products as projection on supermarket.Products;
+
+    @readonly
+    entity Ratings  as projection on supermarket.Ratings;
+
+	action createRating(rating : Integer) returns Ratings;
+    function getAvgRating() returns Decimal;
 }
 ```
 
