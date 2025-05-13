@@ -6,7 +6,7 @@ By the end of this chapter we will have added and invoked an OData V4 action bin
 
 - [1. Add a rating indicator to the XML view](#1-add-a-rating-indicator-to-the-xml-view)<br>
 - [2. Implement the controller](#2-implement-the-controller)<br>
-
+- [3. Debugging](#3-debugging)<br>
 - [4. Test the application](#4-test-the-application)<br>
 
 ### 1. Add a rating indicator to the XML view
@@ -24,7 +24,7 @@ We want to add a rating indicator to our XML view, that allows user to rate the 
         maxValue="5"
         value="{$Parameter/rating}"
         class="sapUiSmallMarginBottom" />
-    <Label text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
+    <Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
 </VBox>	
 ```
 
@@ -53,10 +53,10 @@ The OData action and its parameters are now bound to the rating indicator, but s
 public async onCreateRating(event: RatingIndicator$ChangeEvent) {
     const ratingIndicator = event.getSource();
     const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
-    operation.invoke().then(function() {
+    operation.execute.then(() => {
         console.log("logging the result...", operation.getBoundContext().getObject());
         MessageToast.show("Rating submitted.");
-        operation.getModel()?.refresh();
+        operation.getModel().refresh();
         ratingIndicator.setEnabled(false);
     }).catch(function(error: Error) {
         MessageToast.show(error.message);
@@ -74,11 +74,22 @@ import ODataContextBinding from "sap/ui/model/odata/v4/ODataContextBinding";
 
 This `onCreateRating()` method is called on the change event of the rating indicator (see XML view above) and invokes the `/createRating(...)` action. It's an asynchronous process, which is why use the `promise.then().catch()` syntax to handle the success and error cases. In the success case, we log the result (for demo purposes), show a message toast, refresh the model (to instantly update the average rating via `/getAvgRating()`), and disable the rating indicator. In the error case, we show the error message in a message toast.
 
-⚠️ In this step we deliberately introduced two issues that your TypeScript language server should catch and complain about. Your task is to inspect these issues and fix them in place. We will not give you any more hints than that for now, but we will talk about during the discussion at the end of this chapter. Don't worry too much if you can't fix those issues - your app will still run fine.
+⚠️ In this step we deliberately introduced two issues that your TypeScript language server should catch and complain about. Inspect these issues and try to fix them in place. We will not give you any more hints than that for now, but we will talk about it in the discussion at the [end of this chapter](#further-question-to-discuss). Don't worry too much if you can't fix those issues - your app will still run fine.
 
 ### 3. Debugging
 
-Speaking of issues, debugging is an important part of any development process.
+Speaking of issues, debugging is an important part of any development process. Maybe you have noticed that the creating a new rating makes the product images disappear for a fraction of a second. This is caused by calling the `refresh()` method on the whole model, including the images.
+
+➡️ Your task is now to debug this issue and find an alternative way of refreshing the average rating (`/getAvgRating()` binding of the `avgRating` label) without refreshing the whole model. Open the developer tools of your browser, open the "Sources" tab, and set a break point in the `uimodule/ext/main/Main.controller.ts` file after the promise gets resolved. Now submit a new rating and notice how the execution stops at the break point. Inspect the application at that point in time.
+
+![breakpoint](./breakpoint.png)
+
+A few tips:
+- Use the browser console ("Console" tab) to run code snippets in the context of the application at the break point. For example, you can run `this.getView().byId("avgRating")` to inspect the label. The auto-complete suggestions in the console are also very helpful to see all available methods for an object at runtime.
+- Use the `.getMetadata()` method to get more information about an object. Especially the `_sClassName` is helpful to identity the type of an object, look it up in the [UI5 API reference](https://ui5.sap.com/#/api), and see what methods are available.
+- If you think you found a solution, use the "Network" tab to verify that a request to refresh the average rating was sent to the backend.
+
+We will talk about the solution to this task in the discussion at the [end of this chapter](#further-question-to-discuss).
 
 ### 4. Test the application
 
@@ -104,15 +115,41 @@ The application now includes a rating indicator. Feel free to test it and see th
 > The TS language server also complained that the return value of `operation.getModel()` might possibly be null - potentially resulting in an ugly error when calling `refresh()` on it. You can fix this by using the optional chaining operator `?.`: `operation.getModel()?.refresh()`. This way, `refresh()` will only be called if `getModel()` returns a non-null value. This is a great example of how TS helps you to write more robust code and avoid runtime errors.
 
 </details>
+
 <details>
-<summary>Some other question?</summary>
+<summary>Where you able to refresh only the binding of the `avgRating` label (instead of the whole model) in step 3?</summary>
 
 <br>
 
-> 
+> The solution is to first use `label.getBinding("text")` to get the composite binding of the label, then use `compositeBinding.getBindings()` to get all property bindings of the composite binding, and finally call `refresh()` on the first binding of the array, which is the `/getAvgRating` function binding. This way, only the average rating is refreshed without affecting the product images. It's not rocket science, but quite the task to work out yourself.
+> ```typescript
+>public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+>    const ratingIndicator = event.getSource();
+>    const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+>    operation.invoke().then(() => {
+>        console.log("logging the result...", operation.getBoundContext().getObject());
+>        MessageToast.show("Rating submitted.");
+>        const label = this.getView()?.byId("avgRating") as Label
+>        const compositeBindings = label.getBinding("text") as CompositeBinding
+>        compositeBindings.getBindings()[0].refresh()
+>        ratingIndicator.setEnabled(false);
+>    }).catch((error: Error) => {
+>        MessageToast.show(error.message);
+>    });
+>}
+>```
 
+</details>
+
+<details>
+<summary>What other strategies or tools do you know to debug UI5 applications?</summary>
+
+<br>
+
+> - The [UI5 inspector](https://chromewebstore.google.com/detail/ui5-inspector/bebecogbafbighhaildooiibipcnbngo?hl=de&pli=1) allows you to inspect the UI5 control tree (XML) at runtime, which can be very helpful.
+> - UI5 provides built-in tools for diagnostics and testing purposes via [keyboard shortcuts](https://help.sap.com/docs/ABAP_PLATFORM_NEW/468a97775123488ab3345a0c48cadd8f/154844c3ac2a4675a37aeb6259a5e034.html).
 </details>
 
 <br>
 
-Continue to [Chapter 05 - ](/chapters/05-/)
+Continue to [Chapter 05 - Custom Controls and Third-Party Packages](/chapters/05-/custom-controls-and-third-party-packages/)
