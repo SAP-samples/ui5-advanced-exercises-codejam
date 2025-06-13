@@ -1,27 +1,26 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap/cds": "^8",
-    "express": "^4",
-    "@sap/xssec": "^4",
-    "@cap-js/postgres": "^1"
-  },
-  "devDependencies": {
-    "@cap-js/cds-types": "^0.10.0",
-    "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^8"
-  },
-  "scripts": {
-    "start": "cds-serve"
-  },
-  "cds": {
-    "requires": {
-      "html5-runtime": true
+    "name": "server",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^8",
+        "express": "^4",
+        "@sap/xssec": "^4",
+        "@cap-js/postgres": "^1"
+    },
+    "devDependencies": {
+        "@cap-js/cds-types": "^0.10.0",
+        "@cap-js/sqlite": "^1",
+        "@sap/cds-dk": "^8",
+        "cds-plugin-ui5": "0.12.1",
+        "uimodule": "../uimodule"
+    },
+    "scripts": {
+        "start": "cds-serve",
+        "dev": "cds watch",
+        "build": "cds build --production"
     }
-  }
 }

@@ -12,6 +12,7 @@ declare module "./Supermarket" {
         x?: number | PropertyBindingInfo | `{${string}}`;
         y?: number | PropertyBindingInfo | `{${string}}`;
         z?: number | PropertyBindingInfo | `{${string}}`;
+        growFactor?: number | PropertyBindingInfo | `{${string}}`;
         _busyIndicator?: BusyIndicator;
         _expand?: Button;
     }
@@ -29,6 +30,10 @@ declare module "./Supermarket" {
         // property: z
         getZ(): number;
         setZ(z: number): this;
+
+        // property: growFactor
+        getGrowFactor(): number;
+        setGrowFactor(growFactor: number): this;
 
         // aggregation: _busyIndicator
         get_busyIndicator(): BusyIndicator;

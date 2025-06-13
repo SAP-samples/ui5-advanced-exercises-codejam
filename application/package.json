@@ -6,12 +6,14 @@
         "deploy": "cf deploy mta_archives/codejam.supermarket.mtar --retries 0",
         "lint": "npm run lint --workspaces --if-present",
         "ui5lint": "npm run ui5lint --workspaces --if-present",
-        "start:uimodule": "npm start --workspace uimodule"
+        "start:uimodule": "npm start --workspace uimodule",
+		"dev:server": "npm run dev -w server"
     },
     "dependencies": {
         "mbt": "^1"
     },
     "workspaces": [
+		"server",
         "uimodule"
     ]
 }

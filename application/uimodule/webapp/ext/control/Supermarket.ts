@@ -14,7 +14,7 @@ import BusyIndicator from "sap/m/BusyIndicator"
 import Button from "sap/m/Button"
 
 /**
- * @namespace supermarket.ext.control
+ * @namespace uimodule.ext.control
  */
 export default class Supermarket extends Control {
 
@@ -22,7 +22,8 @@ export default class Supermarket extends Control {
 		properties: {
 			x: { type: "float", defaultValue: 20.69 },
 			y: { type: "float", defaultValue: 10.12 },
-			z: { type: "float", defaultValue: -28.03 }
+			z: { type: "float", defaultValue: -28.03 },
+			growFactor: { type: "float", defaultValue: 2 }
 		},
 		aggregations: {
 			_busyIndicator: {
@@ -41,8 +42,8 @@ export default class Supermarket extends Control {
 	public threeRenderer: WebGLRenderer
 	public controls: OrbitControls
 	public animationSpeed = 3000
-	public height = 200
-	public width = this.height * 2
+	public height: Number
+	public width: Number
 
 	init(): void {
 		this.setAggregation("_busyIndicator", new BusyIndicator({
@@ -55,8 +56,11 @@ export default class Supermarket extends Control {
 	}
 
 	onAfterRendering(): void {
-		const canvas = this.getDomRef()?.querySelector("canvas") as HTMLCanvasElement
+		const canvas = this.getDomRef() as HTMLCanvasElement
 		const { width, height } = canvas.getBoundingClientRect()
+
+		this.height = height
+		this.width = width
 
 		this.threeRenderer = new WebGLRenderer({
 			canvas: canvas,
@@ -78,7 +82,6 @@ export default class Supermarket extends Control {
 		})
 
 		this.controls = new OrbitControls(this.camera, this.threeRenderer.domElement)
-		// this.controls.enabled = false
 
 		this.animate()
 
@@ -86,7 +89,6 @@ export default class Supermarket extends Control {
 	}
 
 	animate(): void {
-		// console.log(this.camera.position.x, this.camera.position.y, this.camera.position.z)
 		this.threeRenderer.render(this.scene, this.camera)
 		this.controls.update()
 		requestAnimationFrame(this.animate.bind(this))
@@ -106,31 +108,33 @@ export default class Supermarket extends Control {
 
 	expand({ stayExpanded = false }: { stayExpanded?: Boolean }): void {
 		const expand = this.getAggregation("_expand") as Button
+		const growFactor = this.getGrowFactor()
 		const icon = expand.getIcon()
-		const factor = icon === "sap-icon://full-screen" || stayExpanded ? 2 : 1
+		const factor = icon === "sap-icon://full-screen" || stayExpanded ? growFactor : 1
 		// @ts-ignore
-		this.getDomRef().style.height = `${this.height * factor}px`
+		this.getParent().getDomRef().style.height = `${this.height * factor}px`
 		// @ts-ignore
-		this.getDomRef().style.width = `${this.width * factor}px`
+		this.getParent().getDomRef().style.width = `${this.width * factor}px`
+		// @ts-ignore
 		this.threeRenderer.setSize(this.width * factor, this.height * factor)
-		expand.setIcon(`sap-icon://${factor === 2 ? "exit-" : ""}full-screen`)
+		expand.setIcon(`sap-icon://${factor === growFactor ? "exit-" : ""}full-screen`)
 	}
 
 	static renderer = {
 		apiVersion: 4,
 		render: (rm: RenderManager, control: Supermarket) => {
-			rm.openStart("div", control)
-			rm.style("position", "fixed")
-			rm.style("bottom", "1rem")
-			rm.style("right", "1rem")
-			rm.style("height", `${control.height}px`)
-			rm.style("display", "flex")
-			rm.style("justify-content", "center")
-			rm.style("border-radius", "1rem")
-			rm.style("overflow", "hidden")
-			rm.style("z-index", "9999")
-			rm.openEnd()
-			rm.openStart("canvas")
+			// rm.openStart("div", control)
+			// rm.style("position", "fixed")
+			// rm.style("bottom", "1rem")
+			// rm.style("right", "1rem")
+			// rm.style("height", `${control.height}px`)
+			// rm.style("display", "flex")
+			// rm.style("justify-content", "center")
+			// rm.style("border-radius", "1rem")
+			// rm.style("overflow", "hidden")
+			// rm.style("z-index", "9999")
+			// rm.openEnd()
+			rm.openStart("canvas", control)
 			rm.style("height", "100%")
 			rm.style("width", "100%")
 			rm.openEnd()
@@ -154,7 +158,7 @@ export default class Supermarket extends Control {
 			rm.openEnd()
 			rm.renderControl(control.getAggregation("_expand") as Control)
 			rm.close("div")
-			rm.close("div")
+			// rm.close("div")
 		}
 	}
 }

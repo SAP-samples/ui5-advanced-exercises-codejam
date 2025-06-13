@@ -7,6 +7,10 @@ import SearchField, { SearchField$LiveChangeEvent } from "sap/m/SearchField";
 import Filter from "sap/ui/model/Filter";
 import FilterOperator from "sap/ui/model/FilterOperator";
 import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import { RatingIndicator$ChangeEvent } from "sap/m/RatingIndicator";
+import MessageToast from "sap/m/MessageToast";
+import Label from "sap/m/Label";
+import CompositeBinding from "sap/ui/model/CompositeBinding";
 
 /**
  * @namespace uimodule.ext.main
@@ -71,5 +75,20 @@ export default class Main extends Controller {
 		const list = this.getView()?.byId("products") as HBox
 		const binding = list.getBinding("items") as ODataListBinding
 		binding.filter(filter)
+	}
+
+	public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+		const ratingIndicator = event.getSource();
+		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+		operation.invoke().then(() => {
+			console.log("logging the result...", operation.getBoundContext().getObject());
+			MessageToast.show("Rating submitted.");
+			const label = this.getView()?.byId("avgRating") as Label
+			const compositeBindings = label.getBinding("text") as CompositeBinding
+			compositeBindings.getBindings()[0].refresh()
+			ratingIndicator.setEnabled(false);
+		}).catch((error: Error) => {
+			MessageToast.show(error.message);
+		});
 	}
 }
