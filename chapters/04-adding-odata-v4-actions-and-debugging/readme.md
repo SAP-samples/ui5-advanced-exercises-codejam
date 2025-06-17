@@ -152,4 +152,4 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 <br>
 
-Continue to [Chapter 05 - Custom Controls and Third-Party Packages](/chapters/05-/custom-controls-and-third-party-packages/)
+Continue to [Chapter 05 - Custom Controls and Third-Party Packages](/chapters/05-custom-controls-and-third-party-packages/)

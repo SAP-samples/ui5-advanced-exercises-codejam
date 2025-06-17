@@ -41,7 +41,7 @@ The event will be run by Peter Muessig (Chief Development Architect) and Nico Sc
 # Chapter 4
 
 - debugging
-- include bug that attendees have to find anf fix
+- include bug that attendees have to find and fix
 
 
 # Chapter 5

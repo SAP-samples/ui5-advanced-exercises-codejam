@@ -51,6 +51,8 @@ The instructor will set you off on the first chapter. Do not proceed to the next
 - [03 - Adding Content to the UI5 Application](/chapters/03-adding-content-to-ui5-app/)
 - [04 - Adding OData V4 Actions and Debugging](/chapters/04-adding-odata-v4-actions-and-debugging/)
 - [05 - Custom Controls and Third-Party Packages](/chapters/05-custom-controls-and-third-party-packages/)
+- [06 - Testing](/chapters/06-testing/)
+- [07 - Deployment](/chapters/07-deployment/)
 
 ## SAPUI5 vs. OpenUI5
 
