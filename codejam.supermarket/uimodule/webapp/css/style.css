@@ -1,0 +1,13 @@
+.fixed {
+	position: fixed;
+	display: flex;
+	bottom: 1rem;
+	right: 1rem;
+	height: 200px;
+	width: 400px;
+
+	justify-content: center;
+	border-radius: 1rem;
+	overflow: hidden;
+	z-index: 9999;
+}
