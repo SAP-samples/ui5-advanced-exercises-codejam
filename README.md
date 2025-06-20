@@ -10,7 +10,7 @@ Please check the [prerequisites](/chapters/00-prep-dev-environment/readme.md#1-p
 
 The material in this repository builds on top of the [core principles of UI5](https://github.com/SAP-Samples/ui5-exercises-codejam), introducing you to more advanced topics and techniques. This repository is a step-by-step guide explaining how build apply these topics and techniques to an existing UI5 application to improve it and add more features. The finished app is a ... 
 
-![The finished app](/finished-app.png)
+![The finished app](/chapters/07-deployment/application.png)
 
 The finished application already exists in the [...](...) directory, but we want to rebuild it from scratch step by step. You can compare the finished app with your version in case you have issues along the way.
 
@@ -53,14 +53,6 @@ The instructor will set you off on the first chapter. Do not proceed to the next
 - [05 - Custom Controls and Third-Party Packages](/chapters/05-custom-controls-and-third-party-packages/)
 - [06 - Testing](/chapters/06-testing/)
 - [07 - Deployment](/chapters/07-deployment/)
-
-## SAPUI5 vs. OpenUI5
-
-You will often read about either SAPUI5 or OpenUI5 when working with the framework. The main difference between the two is the license. Whereas SAPUI5 requires a license and is integrated into a lot of SAP products, OpenUI5 is open source and generally available under an Apache 2.0 license. SAPUI5 includes more libraries than OpenUI5, but the latter still contains all central functionality and most commonly used control libraries are identical in both deliveries.
-
-The material in this repository would work with both deliveries, but uses OpenUI5. For the sake of simplicity and to indicate that the material would work with SAPUI5, too, the material simply refers to the framework as 'UI5'.
-
-You can find more information about this in the [SAPUI5 Documentation](https://sapui5.hana.ondemand.com/#/topic/5982a9734748474aa8d4af9c3d8f31c0).
 
 ## Feedback
 
