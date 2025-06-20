@@ -4,17 +4,18 @@ By the end of this chapter we will have built a custom control that uses a third
 
 ## Steps
 
-- [1. Move 3D model into the application](#0-copy-3d-model-into-the-application)<br>
-- [2. Install required dependencies](#1-install-required-dependencies)<br>
-- [3. Create custom control skeleton](#2-create-custom-control-skeleton)<br>
-- [4. Define metadata and private variables](#3-define-metadata-and-private-variables)<br>
-- [5. Add lifecycle logic](#4-add-lifecycle-logic)<br>
-- [6. Add control specific methods](#5-add-control-specific-methods)<br>
-- [7. Add the renderer](#6-add-the-renderer)<br>
-- [8. Use the custom control](#7-use-the-custom-control)<br>
-- [9. Add CSS stylng](#8-add-css-styling)<br>
-- [10. Use custom control methods in controller](#9-use-custom-control-methods-in-controller)<br>
-- [11. Test the custom control](#10-test-the-custom-control)<br>
+- [1. Move 3D model into the application](#1-copy-3d-model-into-the-application)<br>
+- [2. Install required dependencies](#2-install-required-dependencies)<br>
+- [3. Add configuration to `ui5.yaml`](#3-add-configuration-to-ui5yaml)<br>
+- [4. Create custom control skeleton](#4-create-custom-control-skeleton)<br>
+- [5. Define metadata and private variables](#5-define-metadata-and-private-variables)<br>
+- [6. Add lifecycle logic](#6-add-lifecycle-logic)<br>
+- [7. Add control specific methods](#7-add-control-specific-methods)<br>
+- [8. Add the renderer](#8-add-the-renderer)<br>
+- [9. Use the custom control](#9-use-the-custom-control)<br>
+- [10. Add CSS styling](#10-add-css-styling)<br>
+- [11. Use custom control methods in controller](#11-use-custom-control-methods-in-controller)<br>
+- [12. Test the custom control](#12-test-the-custom-control)<br>
 
 ### 1. Move 3D model into the application
 
@@ -42,7 +43,25 @@ We installed the [`ui5-tooling-modules`](https://www.npmjs.com/package/ui5-tooli
 
 We also installed the (non-development) dependencies [`three`](https://www.npmjs.com/package/three) and [`gsap`](https://www.npmjs.com/package/gsap), which are required for the custom control we will build. Three.js is a popular JavaScript library for creating 3D graphics, and `gsap` is a powerful animation library that we will use to animate the 3D model of the supermarket.
 
-### 3. Create custom control skeleton
+### 3. Add configuration to `ui5.yaml`
+
+➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customMiddleware` section:
+
+```yaml
+    - name: ui5-tooling-modules-middleware
+      afterMiddleware: compression
+```
+
+➡️ Add the following code to the `codejam.supermarket/uimodule/ui5.yaml` file inside the `customTasks` section:
+
+```yaml
+    - name: ui5-tooling-modules-task
+      afterTask: ui5-tooling-transpile-task
+```
+
+The above configuration adds the `ui5-tooling-modules` middleware (for the design time) and task (for the build). The middleware allows us to use NPM packages locally in our UI5 app, and the task ensures that the NPM packages are processed correctly during the build.
+
+### 4. Create custom control skeleton
 
 We can now get into the actual control development. Our custom control will essentially be only one file. Let's create the skeleton first and later fill in the details step-by-step.
 
@@ -97,7 +116,7 @@ Our custom control extends UI5's base class control (`sap/ui/core/Control`), whi
 
 Feel free to check out the UI5 documentation for [guidelines on how to develop controls](https://ui5.sap.com/#/topic/8dcab0011d274051808f959800cabf9f).
 
-### 4. Define metadata and private variables
+### 5. Define metadata and private variables
 
 ➡️ Replace the `metadata` and the `// placeholder for some private variables` in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
@@ -138,7 +157,7 @@ The above metadata (incl. properties and aggregations) and variables lay the fou
 
 **Private variables**: We define some private variables that we will later need for the animations and calculations inside the control.
 
-### 5. Add lifecycle logic
+### 6. Add lifecycle logic
 
 ➡️ Replace the `init()` and `onAfterRendering()` methods in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
@@ -196,7 +215,7 @@ In the `onAfterRendering()` method, which gets executed after the control has be
 - `GLTFLoader` (to load the 3D model file from step 1)
 - `OrbitControls` (so we can use the mouse to navigate in the 3D model) 
 
-### 6. Add control specific methods
+### 7. Add control specific methods
 
 ➡️ Add the following methods to the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file:
 
@@ -239,7 +258,7 @@ We defined three methods that are specific to our custom control:
 2. The `setCameraPosition()` method is public and allows the control consumer to set the camera position in the 3D model (x, y, z coordinates).
 3. The `expand()` method is also public and allows the control consumer to expand the control to a larger size. It uses the `growFactor` property defined in the metadata to calculate the new size of the control.
 
-### 7. Add the renderer
+### 8. Add the renderer
 
 ➡️ Replace the `renderer` in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
@@ -277,7 +296,7 @@ We defined three methods that are specific to our custom control:
 
 The renderer is responsible for creating the HTML elements that make up our custom control. We defined the HTML elements and their styles using TypeScript. We also use the `rm.renderControl()` method to render the aggregations (like children UI5 controls inside our custom control) that we defined earlier.
 
-### 8. Use the custom control
+### 9. Use the custom control
 
 Now that we have our custom control ready, we can use it in our UI5 app.
 
@@ -296,7 +315,7 @@ Now that we have our custom control ready, we can use it in our UI5 app.
 xmlns:cc="uimodule.ext.control"
 ```
 
-### 9. Add CSS stylng
+### 10. Add CSS styling
 
 ➡️ Create a new file `codejam.supermarket/uimodule/webapp/css/style,css` with the following content:
 
@@ -318,7 +337,7 @@ xmlns:cc="uimodule.ext.control"
 
 This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom control when used in the XML view. Arguably, we could have included the `FlexBox` along with the styling as part of our custom control itself, but it makes sense to keep the custom control as independent as possible, and let the developer who uses it decide how to position it.
 
-### 10. Use custom control methods in controller
+### 11. Use custom control methods in controller
 
 ➡️ Add the following code to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
@@ -337,7 +356,7 @@ With this method (which is invoked on the `press` event of the product tiles - c
 
 If you feel like it, you can test the code completion (powered by TypeScript) by typing `supermarket.` at the end of the method. You should see all available methods (obviously only the public ones) plus their documentation inside your IDE. Pretty nice, isn't it?
 
-### 11. Test the custom control
+### 12. Test the custom control
 
 ➡️ Refresh your browser window at `http://localhost:4004/` and test the application. In case you closed your server, restart it with the following command from the project root:
 
