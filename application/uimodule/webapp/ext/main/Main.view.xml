@@ -18,6 +18,7 @@
 					class="sapUiMediumMarginTop" />
 				<Panel class="sapUiMediumMarginTop">
 					<SearchField
+						id="searchField"
 						placeholder="Find products"
 						liveChange=".onSearchProducts"
 						width="480px" />

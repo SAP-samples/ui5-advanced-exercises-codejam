@@ -16,10 +16,13 @@
             ]
         },
         "types": [
-            "@sapui5/types"
+            "@sapui5/types", "@types/qunit"
         ]
     },
     "include": [
         "./webapp/**/*"
+    ],
+    "exclude": [
+        "./webapp/test/e2e/**/*"
     ]
 }
