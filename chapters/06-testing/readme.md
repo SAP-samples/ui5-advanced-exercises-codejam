@@ -9,7 +9,7 @@ By the end of this chapter, we will know how to write QUnit, OPA, and WDI5 tests
 - [3. Add `testsuite.qunit.html` (test suite)](#3-add-testsuitequnithtml-test-suite)<br>
 - [4. Add `testsuite.qunit.ts` (test suite)](#4-add-testsuitequnitts-test-suite)<br>
 - [5. Add `Test.qunit.html` (test suite)](#5-add-testqunithtml-test-suite)<br>
-- [6. Add `unitTests.qunit.ts (list of unit tests)`](#6-add-unittestsqunitts-list-of-unit-tests)<br>
+- [6. Add `unitTests.qunit.ts` (list of unit tests)](#6-add-unittestsqunitts-list-of-unit-tests)<br>
 - [7. Add `Main.qunit.ts` (unit test)](#7-add-mainqunitts-unit-test)<br>
 - [8. Register the list of unit tests in the test suite](#8-register-the-list-of-unit-tests-in-the-test-suite)<br>
 - [9. Run the QUnit tests](#9-run-the-qunit-tests)<br>
