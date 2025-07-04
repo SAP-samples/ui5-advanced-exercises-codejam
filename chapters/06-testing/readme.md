@@ -6,16 +6,16 @@ By the end of this chapter, we will know how to write QUnit, OPA, and WDI5 tests
 
 - [1. Run basic QUnit test](#1-run-basic-qunit-test)<br>
 - [2. Run basic WDI5 test](#2-run-basic-wdi5-test)<br>
-- [3. Add `testsuite.qunit.html (test suite)`](#3-add-testsuitequnithtml-test-suite)<br>
-- [4. Add `testsuite.qunit.ts (test suite)`](#4-add-testsuitequnitts-test-suite)<br>
-- [5. Add `Test.qunit.html (test suite)`](#5-add-testqunithtml-test-suite)<br>
+- [3. Add `testsuite.qunit.html` (test suite)](#3-add-testsuitequnithtml-test-suite)<br>
+- [4. Add `testsuite.qunit.ts` (test suite)](#4-add-testsuitequnitts-test-suite)<br>
+- [5. Add `Test.qunit.html` (test suite)](#5-add-testqunithtml-test-suite)<br>
 - [6. Add `unitTests.qunit.ts (list of unit tests)`](#6-add-unittestsqunitts-list-of-unit-tests)<br>
+- [7. Add `Main.qunit.ts` (unit test)](#7-add-mainqunitts-unit-test)<br>
 - [8. Register the list of unit tests in the test suite](#8-register-the-list-of-unit-tests-in-the-test-suite)<br>
-- [7. Add `Main.qunit.ts (unit test)`](#7-add-mainqunitts-unit-test)<br>
 - [9. Run the QUnit tests](#9-run-the-qunit-tests)<br>
-- [10. Add `opaTests.qunit.ts (list of OPA journeys)`](#10-add-opatestsqunitts-list-of-opa-journeys)<br>
-- [11. Add `HelloJourney.qunit.ts (OPA journey)`](#11-add-hellojourneyqunitts-opa-journey)<br>
-- [12. Add `MainPage.ts (page object)`](#12-add-mainpagets-page-object)<br>
+- [10. Add `opaTests.qunit.ts` (list of OPA journeys)](#10-add-opatestsqunitts-list-of-opa-journeys)<br>
+- [11. Add `HelloJourney.qunit.ts` (OPA journey)](#11-add-hellojourneyqunitts-opa-journey)<br>
+- [12. Add `MainPage.ts` (page object)](#12-add-mainpagets-page-object)<br>
 - [13. Register the list of OPA journeys in the test suite](#13-register-the-list-of-opa-journeys-in-the-test-suite)<br>
 - [14. Run the QUnit tests](#14-run-the-qunit-tests)<br>
 - [15. Implement WDI5 tests](#15-implement-wdi5-tests)<br>
