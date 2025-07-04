@@ -84,8 +84,9 @@ yo easy-ui5 project cap
 |Prompt|Answer|
 |---|---|
 |How do you want to name your new SAP CAP server module?|`server`|
-|Which CAP capabilities do you want to add?|`<enter>` *(choose defaults)*|
+|Which CAP capabilities do you want to add?|`<Enter>` *(choose defaults)*|
 |Do you want to add the SAP CAP service as the default model to your uimodule?|`Yes`|
+|*Accept to install packages and overwrite existing files.*||
 
 We ran the `cap` (sub-)sub-generator to add a CAP server to our project, which makes sure it is well-integrated into the monorepo, for example by sharing dependencies at root level. The server will serve (pun intended) as the backend for our UI5 app - conveniently, the generator even added the CAP service as a data source and default data model. By default, it comes with a tiny sample service, which you are free to inspect of course (directories `codejam.supermarket/server/db/` and `codejam.supermarket/server/srv/`).
 
@@ -120,7 +121,7 @@ To make it easier to start the CAP server in dev mode (meaning `cds watch` - whi
 
 ```json
 ,
-"dev:server": "npm run dev --workspace server"
+        "dev:server": "npm run dev --workspace server"
 ```
 
 We added a new script to the project root that triggers the `dev` script (`npm run dev`) of the CAP server (`--workspace server`). This script in turn is configured to run `cds watch` (see `codejam.supermarket/server/package.json`), which watches the file system and restarts the server upon changes. As described above, the UI5 server will also be started with the help of the `cds-plugin-ui5`.
@@ -140,4 +141,4 @@ As of now, our UI5 app is still empty and only displays the "Main" title. We wil
 ![cds-server](./cds-server.png)
 ![ui5-app](./ui5-app.png)
 
-Continue to [Chapter 02 - Preparing the CAP Server](/chapters/02-preparing-the-cap-server/)
+Continue to [Chapter 02 - Preparing the CAP Server](/chapters/02-preparing-cap-server/)

@@ -1,16 +1,35 @@
 # Chapter 06 - Testing
 
-After working through this chapter, you'll know how to write QUnit, OPA and WDI5 tests for your UI5 application and how you can automate them.
+By the end of this chapter, we will know how to write QUnit, OPA, and WDI5 tests for your UI5 application and how you can automate them.
 
-## Background
+## Steps
 
-*QUnit* tests are used for functional testing, allowing you to directly test your application code. *OPA* tests serve as integration tests, enabling you to simulate user interactions within your application. *WDI5* tests are end-to-end (E2E) tests that let you validate your application in a broader context, including navigation between different applications.
+- [1. Run basic QUnit test](#1-run-basic-qunit-test)<br>
+- [2. Run basic WDI5 test](#2-run-basic-wdi5-test)<br>
+- [3. Add `testsuite.qunit.html (test suite)`](#3-add-testsuitequnithtml-test-suite)<br>
+- [4. Add `testsuite.qunit.ts (test suite)`](#4-add-testsuitequnitts-test-suite)<br>
+- [5. Add `Test.qunit.html (test suite)`](#5-add-testqunithtml-test-suite)<br>
+- [6. Add `unitTests.qunit.ts (list of unit tests)`](#6-add-unittestsqunitts-list-of-unit-tests)<br>
+- [8. Register the list of unit tests in the test suite](#8-register-the-list-of-unit-tests-in-the-test-suite)<br>
+- [7. Add `Main.qunit.ts (unit test)`](#7-add-mainqunitts-unit-test)<br>
+- [9. Run the QUnit tests](#9-run-the-qunit-tests)<br>
+- [10. Add `opaTests.qunit.ts (list of OPA journeys)`](#10-add-opatestsqunitts-list-of-opa-journeys)<br>
+- [11. Add `HelloJourney.qunit.ts (OPA journey)`](#11-add-hellojourneyqunitts-opa-journey)<br>
+- [12. Add `MainPage.ts (page object)`](#12-add-mainpagets-page-object)<br>
+- [13. Register the list of OPA journeys in the test suite](#13-register-the-list-of-opa-journeys-in-the-test-suite)<br>
+- [14. Run the QUnit tests](#14-run-the-qunit-tests)<br>
+- [15. Implement WDI5 tests](#15-implement-wdi5-tests)<br>
+- [16. Run the *WDI5* tests](#16-run-the-wdi5-tests)<br>
+- [17. Configure `ui5-test-runner` (test automation)](#17-configure-ui5-test-runner-test-automation)<br>
+- [18. Start the `ui5-test-runner`](#18-start-the-ui5-test-runner)<br>
 
-*QUnit* or *OPA* tests are included in UI5 and can be simply executed in the browser. You can either open them directly in the browser or you can use a test runner to automate the execution.
+## Background Information
 
-## Generated test structure
+*QUnit* tests are used for functional testing, allowing us to directly test our application code. *OPA* tests serve as integration tests, enabling us to simulate user interactions within the application. *WDI5* tests are end-to-end (E2E) tests that let us validate the application in a broader context, including navigation between different applications.
 
-The project generator initially creates test files in your project. It comes with a basic *QUnit* test and *WDI5* test incl. configuration. The structure looks as follows:
+*QUnit* or *OPA* tests are included in UI5 and can be simply executed in the browser. They can either be opened directly in the browser or be triggered using a test runner to automate the execution.
+
+The easy-ui5 project generator (that we used in [chapter 01](/chapters/01-generating-full-stack-project)) already added some basic *QUnit* and *WDI5* tests incl. configuration. The structure looks as follows:
 
 ```text
 webapp
@@ -21,50 +40,61 @@ webapp
       \_ wdio.conf.ts
    \_ unit
       \_ FirstTest.js
-   \_ locate-reuse-libs.js   
+   \_ locate-reuse-libs.js
 ```
 
-### QUnit tests
+### 1. Run basic QUnit test
 
-➡️ The *QUnit* test can be executed by calling the following command in the `uimodule` folder:
+➡️ Run the following command from the `codejam.supermarket/uimodule/` directory to execute the *QUnit* tests:
 
 ```sh
+# make sure you are in the uimodule/ directory
 npm run qunit
 ```
 
-This will launch the Fiori tools which already comes with some built-in boilerplate files to finally serve and run all available *QUnit* test (`*Test.js` or `*Test.ts` in the `unit` and nested folders) in your browser.
+This will launch the SAP Fiori tools (`fiori run ...`) which provides built-in boilerplate files to serve and run all available *QUnit* test (`*Test.js` or `*Test.ts` files in the `unit/` directory) in the browser.
 
-⚠ Although, we generated a TypeScript project, the generated QUnit test is currently using JavaScript. But you can safely change the file extension to TypeScript, remove the UI5 AMD-like code (`sap.ui.define`) as the code is trivial and also works in TypeScript. Now the code looks like that:
+You might have noticed we started the `uimodule` decoupled from the backend server for the first time. We can do that in this case as the unit tests don't rely on the UI5 app to be fully functional and operating against the backend server.
 
-```ts
-QUnit.module("First Test", {});
+>⚠ Although, we generated a TypeScript project, the generated QUnit test is currently using JavaScript. Feel free to change the file extension to `.ts` and remove the UI5 AMD-like code (`sap.ui.define`). Now the code looks like this:
+>
+>```ts
+>QUnit.module("First Test", {});
+>
+>QUnit.test("It's just true", (assert) => {
+>	assert.strictEqual(true, true);
+>});
+>```
 
-QUnit.test("It's just true", (assert) => {
-	assert.strictEqual(true, true);
-});
+### 2. Run basic WDI5 test
+
+➡️ Replace the `baseUrl` value in the `codejam.supermarket/uimodule/test/e2e/wdio.conf.ts` file with the following url:
+
+```text
+http://localhost:4004/uimodule/index.html
 ```
 
-ℹ️ To fix the issue that `QUnit` is unknown, go into your `tsconfig.json` and add `@types/qunit` into the `types` section.
-
-### WDI5 tests
-
-➡️ The *WDI5* test can be executed by running the following commands in the `uimodule` folder:
+➡️ Start the project as usual from the `codejam.supermarket/` directory:
 
 ```sh
-# first start the development server
-npm start 
+# make sure you are in the codejam.supermarket/ directory (project root)
+npm run dev:server
+```
 
-# second run the wdi5 tests against it
+➡️ Open a new terminal (don't reuse the other one!) and run the following command from the `codejam.supermarket/uimodule/` directory to execute the *WDI5* tests (testing against the already running server):
+
+```sh
+# make sure you are in the uimodule/ directory
 npm run wdi5
 ```
 
-⚠ When you see issue running `npm start` related to TypeScript, please ensure to exclude the `./webapp/test/e2e/**/*` folder in your root `tsconfig.json`. The E2E tests come with an own `tsconfig.json`.
+This will launch the *WDI5* tests defined in the `codejam.supermarket/uimodule/test/e2e/sample.test.ts` file. The file is functionally empty (as the actual test is being skipped) but it's still nice to know how to trigger this built-in test configuration.
 
-## Prepare your project for adding QUnit or OPA tests
+### 3. Add `testsuite.qunit.html` (test suite)
 
-If you need a bit more control over the generated files, you can also create the boilerplate files maually. This allows you to specify e.g. the *QUnit* or *Sinon* version in the test suite and to maintain a list of tests to be executed. The tests are trigged by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: [https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f]()
+In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: [https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f]()
 
-As a preparation you need to add a testsuite incl. a testpage:
+In this and the subsequent two steps we will create the following file structure, which is essentially the boilerplate required to run *QUnit* and *OPA* tests - the so-called *test suite*:
 
 ```text
 webapp
@@ -74,11 +104,7 @@ webapp
    \_ Test.qunit.html
 ```
 
-These three files are the boilerplate for the execution of *QUnit* and *OPA* tests.
-
-### 1. Add `testsuite.qunit.html`
-
-Add a file called `testsuite.qunit.html` in the `test` folder of your UI5 application with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/test/testsuite.qunit.html` file with the following content:
 
 ```html
 <!doctype html>
@@ -101,9 +127,11 @@ Add a file called `testsuite.qunit.html` in the `test` folder of your UI5 applic
 </html>
 ```
 
-### 2. Add `testsuite.qunit.ts`
+### 4. Add `testsuite.qunit.ts` (test suite)
 
-The HTML page requires a testsuite which needs to be put aside. Add a file called `testsuite.qunit.ts` in the `test` folder of your UI5 application with the following content:
+The HTML page requires a test suite which needs to be put aside.
+
+➡️ Create a new  `codejam.supermarket/uimodule/test/testsuite.qunit.ts` file with the following content:
 
 ```js
 export default {
@@ -134,9 +162,11 @@ export default {
 };
 ```
 
-### 3. Add `Test.qunit.html`
+### 5. Add `Test.qunit.html` (test suite)
 
-The testsuite defines a test page to be used to execute the tests declared in that file as well. Add a `Test.qunit.html` file into the `test` folde with the following content:
+The test suite defines a test page which is used to execute the tests declared in that file as well.
+
+➡️ Create a new `codejam.supermarket/uimodule/test/Test.qunit.html` file with the following content:
 
 ```html
 <!doctype html>
@@ -157,9 +187,9 @@ The testsuite defines a test page to be used to execute the tests declared in th
 </html>
 ```
 
-## Add QUnit tests
+### 6. Add `unitTests.qunit.ts` (list of unit tests)
 
-The *QUnit* tests are typically put into the following structure:
+The *QUnit* tests itself are typically put into the following structure:
 
 ```text
 webapp
@@ -170,52 +200,61 @@ webapp
          \_ Main.qunit.ts
 ```
 
-### 1. Add `unitTests.qunit.ts`
+The `unitTests.qunit.ts` file lists the individual *QUnit* test pages to be executed via the test suite. We use it to import the modules providing *QUnit* modules and tests.
 
-The `unitTests.qunit.ts` file lists the individual *QUnit* test pages to be executed via the testsuite. Here you just import the modules providing *QUnit* modules and tests.
-
-In your `test/unit` folder, please add a file called `unitTests.qunit.ts` with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/test/unit/unitTest.qunit.ts` file with the following content:
 
 ```ts
-// import all your QUnit tests here
+// import all QUnit tests here
 import "./controller/Main.qunit";
 ```
 
-### 2. Add `Main.qunit.ts`
+### 7. Add `Main.qunit.ts` (unit test)
 
-The `Main.qunit.ts` file now defines *QUnit* modules and tests. A very basic check is to test the availability of a function in the `Main.controller` of the application. Create a `Main.qunit.ts` file with the following content in the `test/unit/controller` folder:
+The `Main.qunit.ts` file now defines *QUnit* modules and tests. A very basic check is to test the availability of a function in the `Main.controller` of the application.
+
+➡️ Create a new `codejam.supermarket/uimodule/test/unit/controller/Main.qunit.ts` file with the following content:
 
 ```ts
 import Main from "uimodule/ext/main/Main.controller";
 
 QUnit.module("Sample Main controller test");
 
-QUnit.test("The Main controller class has a sayHello method", function (assert) {
-	// as a very basic test example just check the presence of the "sayHello" method
+QUnit.test("The Main controller class has a onFlyToProduct method", function (assert) {
 	assert.strictEqual(typeof Main.prototype.onFlyToProduct, "function");
 });
 ```
 
-### 3. Register the `unitTests.qunit.ts` in the `testsuite.qunit.ts`
+> ℹ️ To fix the issue that QUnit is unknown, go into your root tsconfig.json and add `@types/qunit` to the `types` section.
 
-Open the `testsuite.qunit.ts` and in the section `tests` add the following content:
+### 8. Register the list of unit tests in the test suite
+
+➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
 
 ```ts
-export default {
-	[...]
-	tests: {
 		"unit/unitTests": {
 			title: "Unit tests for uimodule"
 		}
-	}
-};
 ```
 
-Now, you can run your *QUnit* tests in the browser by starting the project with the command line `npm run start:uimodule` in the `application` directory. After the server is running, you can open the testsuite with the following URL: [http://localhost:8080/test/testsuite.qunit.html]() (ensure that the same port is used) and press **Run All** or click on the individual *QUnit* test to execute.
+With this step we registered the list of unit tests (`unitTests.qunit.ts`) in the test suite.
 
-## Add OPA tests
+### 9. Run the *QUnit* tests
 
-The *OPA* tests are typically put into the following structure:
+We can now run our *QUnit* tests in the browser.
+
+➡️ Run the following command from the `codejam.supermarket/uimodule/` directory to start the UI5 application (without the backend server):
+
+```sh
+# make sure you are in the uimodule/ directory
+npm run start
+```
+
+➡️ Open the test suite at [http://localhost:8080/test/testsuite.qunit.html]() to run the *QUnit* tests. You can run all tests at once by pressing **Run All** or click on the individual *QUnit* tests to execute.
+
+### 10. Add `opaTests.qunit.ts` (list of OPA journeys)
+
+*OPA* tests typically consist of journeys and page objects. They are typically put into the following structure:
 
 ```text
 webapp
@@ -227,24 +266,20 @@ webapp
          \_ MainPage.ts
 ```
 
-*OPA* tests typically consist of journeys and page objects.
+The `opaTests.qunit.ts` file lists the individual *OPA* journeys to be executed via the test suite. We use it to import the modules providing *OPA* journeys.
 
-### 1. Add `opaTests.qunit.ts`
-
-The `opaTests.qunit.ts` file lists the individual *OPA* test pages to be executed via the testsuite. Here you just import the modules providing *OPA* journeys.
-
-In your `test/integration` folder, please add a file called `opaTests.qunit.ts` with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/test/integration/opaTests.qunit.ts` file with the following content:
 
 ```ts
-// import all your OPA journeys here
-import "./HelloJourney";
+// import all journeys here
+import "./HelloJourney.qunit";
 ```
 
-### 2. Add `HelloJourney.qunit.ts`
+### 11. Add `HelloJourney.qunit.ts` (OPA journey)
 
-The `HelloJourney.qunit.ts` implements the test journey to simulate an interaction with the application. In our hello journey we open the application, search for "Coca" and check that a single tile is visible with "Coca-Cola" as title.
+The `HelloJourney.qunit.ts` implements the test journey to simulate an interaction with the application.
 
-In your `test/integration` folder, please add a file called `HelloJourney.qunit.ts` with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/test/integration/HelloJourney.qunit.ts` file with the following content:
 
 ```ts
 import opaTest from "sap/ui/test/opaQunit";
@@ -274,9 +309,10 @@ opaTest("Should search for Coca-Cola", function () {
 });
 ```
 
-Typically, the actions and assertions calls are outsourced in so-called page object. They are related to a single view in our case to the `Main.view`.
+In this journey we open the application, search for "Coca" and check that a single tile is visible with "Coca-Cola" as title.
+Typically, the actions and assertions calls itself are outsourced to so-called page objects. Page objects are related to a single view - in our case to the `Main` view.
 
-### 3. Add `MainPage.ts`
+### 12. Add `MainPage.ts` (page object)
 
 The page object implements actions to interact and assertions to check the behavior of the UI.
 
@@ -328,29 +364,39 @@ export default class MainPage extends Opa5 {
 }
 ```
 
-### 4. Register the `opaTests.qunit.ts` in the `testsuite.qunit.ts`
+### 13. Register the list of OPA journeys in the test suite
 
-Open the `testsuite.qunit.ts` and in the section `tests` add the following content:
+➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
+
 
 ```ts
-export default {
-	[...]
-	tests: {
-		"unit/unitTests": {
-			title: "Unit tests for uimodule"
-		},
+,
 		"integration/opaTests": {
 			title: "Integration tests for uimodule"
 		}
-	}
-};
 ```
 
 Now, you can run your *OPA* tests in the browser together with the *QUnit* tests by starting the project with the command line `npm run start:uimodule` in the `application` directory. After the server is running, you can open the testsuite with the following URL: [http://localhost:8080/test/testsuite.qunit.html]() (ensure that the same port is used) and press **Run All** or click on the individual *OPA* test to execute.
 
-## Maintain WDI5 tests
+### 14. Run the *QUnit* tests
 
-The project template already comes with the boilerplate for *WDI5* tests. Initially, in this chapter we have seen how to adopt the project configuration to make TypeScript work properly and to trigger them manually.
+We can now run our *OPA* (integration) tests (together with the unit tests from before) in the browser. But this time we need to start the whole project, including the backend server, as we are testing the app in action and therefore need it to be fully functional.
+
+➡️ Run the following command from the `codejam.supermarket/` directory to start the UI5 application together with the backend server:
+
+```sh
+# make sure you are in the codejam.supermarket/ directory (project root)
+npm run dev:server
+```
+
+➡️ Open the test suite at [http://localhost:4004/uimodule/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
+
+
+### 15. Implement *WDI5* tests
+
+The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test at the beginning of this chapter ([step 2](#2-run-basic-wdi5-test)).
+
+This is the current structure of the *WDI5* tests:
 
 ```text
 webapp
@@ -361,101 +407,123 @@ webapp
       \_ wdio.conf.ts
 ```
 
-### 1. Modify the `sample.test.ts`
+The `sample.test.ts` is initially a very basic test which does some simple logging. Let's extend the test to do the same as the *OPA* test - checking the existence of the `Page`, the `SearchField` and searching for "Coca" to ensure that only the respective tile is displayed.
 
-The `sample.test.ts` is initially a very basic test which does some simple logging. Let's extend the test to do the same like the `OPA` test - checking the existence of the Page, the SearchField and searching for "Coca" to ensure that only the respective tile is displayed:
+➡️ Replace the content of the `codejam.supermarket/uimodule/test/e2e/sample.test.ts` file with the following code:
 
 ```ts
 /* eslint-disable */
+import GenericTile from "sap/m/GenericTile";
 import { wdi5 } from "wdio-ui5-service";
 
 describe("samples", () => {
-  it("should log", () => {
-    const logger = wdi5.getLogger();
-    logger.log("hello world!");
-  });
+	it("should log", () => {
+		const logger = wdi5.getLogger();
+		logger.log("hello world!");
+	});
 
-  // intentionally skipping this as you have to adjust things to your UI5 app :)
-  it("should retrieve the Main page", async () => {
-    const appLocator = {
-      selector: {
-        controlType: "sap.m.Page",
-        viewName: "uimodule.ext.main.Main",
-      },
-    };
+	it("should retrieve the Main page", async () => {
+		const appLocator = {
+			selector: {
+				controlType: "sap.m.Page",
+				viewName: "uimodule.ext.main.Main",
+			},
+		};
 
-    const app = await browser.asControl(appLocator);
-    await expect(app).toBeDefined();
-  });
+		const app = await browser.asControl(appLocator);
+		await expect(app).toBeDefined();
+	});
 
-  it("should retrieve the search field and enter Coca", async () => {
-    const searchLocator = {
-      selector: {
-        id: "searchField",
-        viewName: "uimodule.ext.main.Main",
-      },
-    };
+	it("should retrieve the search field and enter Coca", async () => {
+		const searchLocator = {
+			selector: {
+				id: "searchField",
+				viewName: "uimodule.ext.main.Main",
+			},
+		};
 
-    const search = await browser.asControl(searchLocator);
-    await expect(search).toBeDefined();
-    await (browser.asControl(searchLocator) as any).focus().enterText("Coca");
-    await expect(search).toHaveValue("Coca");
-  });
+		const search = await browser.asControl(searchLocator);
+		await expect(search).toBeDefined();
+		await (browser.asControl(searchLocator) as any).focus().enterText("Coca");
+		await expect(search).toHaveValue("Coca");
+	});
 
-  it("should display only the Coca Cola tile", async () => {
-    const tilesLocator = {
-      selector: {
-        controlType: "sap.m.GenericTile",
-        viewName: "uimodule.ext.main.Main",
-      },
-    };
+	it("should display only the Coca Cola tile", async () => {
+		const tilesLocator = {
+			selector: {
+				controlType: "sap.m.GenericTile",
+				viewName: "uimodule.ext.main.Main",
+			},
+		};
 
-    const tiles = await browser.allControls(tilesLocator);
-    await expect(tiles.length).toBe(1);
-    await expect(await tiles[0].getHeader()).toBe("Coca Cola");
-  });
+		const tiles = await browser.allControls(tilesLocator) as GenericTile[];
+		await expect(tiles.length).toBe(1);
+		await expect(await tiles[0].getHeader()).toBe("Coca Cola");
+	});
 });
 ```
 
-To finally run the *WDI5* tests you need to start the CAP server and the UI5 server first and then you can execute the test above by running the following command line in the `ui5module` folder:
+### 16. Run the *WDI5* tests
+
+To run the *WDI5* tests, we need to start the project as usual from the project root, including the backend server.
+
+➡️ Run the following command from the `codejam.supermarket/` directory:
 
 ```sh
+# make sure you are in the codejam.supermarket/ directory (project root)
+npm run dev:server
+```
+
+➡️ Open a new terminal (don't reuse the other one!) and run the following command from the `codejam.supermarket/uimodule/` directory to execute the *WDI5* tests (testing against the already running server):
+
+```sh
+# make sure you are in the uimodule/ directory
 npm run wdi5
 ```
 
-## Test automation
+You will notice how the *WDI5* tests are executed in the browser, similar to the *OPA* tests. The test results are displayed in the terminal.
 
-For the automated execution of *QUnit* and/or *OPA* tests *Karma* was used in the past. As *Karma* had been deprecated there are two alternatives available right now:
+### 17. Configure `ui5-test-runner` (test automation)
 
-* [UI5 Test Runner](https://arnaudbuchholz.github.io/ui5-test-runner/)
-* [wdio-qunit-service](https://webdriver.io/docs/wdio-qunit-service/)
+In the past, *Karma* was used for the automated execution of *QUnit* and/or *OPA* tests. As *Karma* has been deprecated, two alternatives emerged:
 
-Both can be seen as drop-in replacement to *Karma* but *wdio-qunit-service* makes most sense, if *WDI5* is already in use. The [openui5-sample-app](https://github.com/SAP/openui5-sample-app) is using the UI5 Test Runner, therfore we also use it here.
+1. [UI5 Test Runner](https://arnaudbuchholz.github.io/ui5-test-runner/)
+1. [wdio-qunit-service](https://webdriver.io/docs/wdio-qunit-service/)
 
-### Use `ui5-test-runner`
+Both can be seen as drop-in replacement to *Karma*, but *wdio-qunit-service* makes most sense, if *WDI5* is already in use. The [openui5-sample-app](https://github.com/SAP/openui5-sample-app) is using the `ui5-test-runner`, which is why we also use it here. Luckily, there is not much configuration to do - we only have to install the package and add a script to our `package.json` file.
 
-As the UI5 Test Runner is a drop-in replacement, there is not much configuration to do. Install the dependency and run it.
-
-➡️ Install the UI5 Test Runner as a dev-dependency in the `uimodule` folder:
+➡️ Run the following command from the `codejam.supermarket/uimodule/` directory:
 
 ```sh
-npm install -D ui5-test-runner
+# make sure you are in the uimodule/ directory
+npm install ui5-test-runner -D
 ```
 
-➡️ In your `package.json`, add the following script:
+➡️ Add the following code to the `scripts` section of the `codejam.supermarket/uimodule/package.json` file:
 
 ```json
-{
-    [...]
-    "scripts": {
-        "test-runner": "ui5-test-runner --url http://localhost:8080/test/testsuite.qunit.html"
-    }
-    [...]
-}
+,
+		"test-runner": "ui5-test-runner --url http://localhost:4004/uimodule/test/testsuite.qunit.html --report-dir webapp/report"
 ```
 
-This line tells the UI5 Test Runner to opens the test suite. Similar like for *WDI5* you need to start the CAP server and the UI5 server first and then you can execute the test above by running the following command line in the `ui5module` folder:
+### 18. Start the `ui5-test-runner`
+
+To start the `ui5-test-runner`, we need to start the project as usual from the project root, including the backend server.
+
+➡️ Run the following command from the `codejam.supermarket/` directory:
 
 ```sh
+# make sure you are in the codejam.supermarket/ directory (project root)
+npm run dev:server
+```
+
+➡️ Open a new terminal (don't reuse the other one!) and run the following command from the `codejam.supermarket/uimodule/` directory to start the tests:
+
+```sh
+# make sure you are in the uimodule/ directory
 npm run test-runner
 ```
+
+You'll notice how the tests are being executed [headless](https://en.wikipedia.org/wiki/Headless_browser). Feel free to inspect the test results at [http://localhost:4004/uimodule/report/report.html]().
+
+Continue to [Chapter 07 - Deployment](/chapters/07-deployment/)

@@ -16,16 +16,17 @@ We want to add a rating indicator to our XML view, that allows user to rate the 
 ➡️ Add the following code to the end of the outer `<VBox />` element in the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file:
 
 ```xml
-<VBox alignItems="Center">
-    <Title text="Do you enjoy this application?" />
-    <RatingIndicator
-        binding="{/createRating(...)}"
-        change=".onCreateRating"
-        maxValue="5"
-        value="{$Parameter/rating}"
-        class="sapUiSmallMarginBottom" />
-    <Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
-</VBox>	
+			<VBox alignItems="Center">
+				<Title text="Do you enjoy this application?" />
+				<RatingIndicator
+					binding="{/createRating(...)}"
+					change=".onCreateRating"
+					maxValue="5"
+					value="{$Parameter/rating}"
+					class="sapUiSmallMarginBottom" />
+				<Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
+			</VBox>
+		</VBox>
 ```
 
 We added a `<RatingIndicator />` control that uses a [deferred operation binding](https://ui5.sap.com/#/topic/b54f7895b7594c61a83fa7257fa9d13f) for the Odata V4 action `/createRating(...)`, more specifically a deferred *action* binding (action/function depending on the type of OData operation). A deferred operation binding is defined via the `(...)` syntax. It is "deferred", because it is not called immediately - unlike the simple function binding `/getAvgRating()` that is used to get the average rating from the backend. Deferred operation bindings are often called with parameters, which can be set via the `setParameter("rating", "<value>")` method or more declaratively via the `{$Parameter/rating}` syntax, which we did here.
@@ -50,18 +51,18 @@ The OData action and its parameters are now bound to the rating indicator, but s
 ➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
 ```typescript
-public async onCreateRating(event: RatingIndicator$ChangeEvent) {
-    const ratingIndicator = event.getSource();
-    const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
-    operation.execute.then(() => {
-        console.log("logging the result...", operation.getBoundContext().getObject());
-        MessageToast.show("Rating submitted.");
-        operation.getModel().refresh();
-        ratingIndicator.setEnabled(false);
-    }).catch(function(error: Error) {
-        MessageToast.show(error.message);
-    });
-}
+	public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+		const ratingIndicator = event.getSource();
+		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+		operation.execute.then(() => {
+			console.log("logging the result...", operation.getBoundContext().getObject());
+			MessageToast.show("Rating submitted.");
+			operation.getModel().refresh();
+			ratingIndicator.setEnabled(false);
+		}).catch(function(error: Error) {
+			MessageToast.show(error.message);
+		});
+	}
 ```
 
 ➡️ Also make sure to add the following import statements:
@@ -110,7 +111,7 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 <br>
 
-> The TS language server complained that the `execute()` method of the `ODataBindingContext` is deprecated. Replace it with `invoke()` to fix this. This is a great example of how TS provides a comprehensive experience that feels like the documentation is built into your IDE.
+> The TS language server complained that the `execute` method of the `ODataBindingContext` is deprecated. Replace it with `invoke()` to fix this. This is a great example of how TS provides a comprehensive experience that feels like the documentation is built into your IDE.
 >
 > The TS language server also complained that the return value of `operation.getModel()` might possibly be null - potentially resulting in an ugly error when calling `refresh()` on it. You can fix this by using the optional chaining operator `?.`: `operation.getModel()?.refresh()`. This way, `refresh()` will only be called if `getModel()` returns a non-null value. This is a great example of how TS helps you to write more robust code and avoid runtime errors.
 
@@ -123,20 +124,20 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 > The solution is to first use `label.getBinding("text")` to get the composite binding of the label, then use `compositeBinding.getBindings()` to get all property bindings of the composite binding, and finally call `refresh()` on the first binding of the array, which is the `/getAvgRating` function binding. This way, only the average rating is refreshed without affecting the product images. It's not rocket science, but quite the task to work out yourself.
 > ```typescript
->public async onCreateRating(event: RatingIndicator$ChangeEvent) {
->    const ratingIndicator = event.getSource();
->    const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
->    operation.invoke().then(() => {
->        console.log("logging the result...", operation.getBoundContext().getObject());
->        MessageToast.show("Rating submitted.");
->        const label = this.getView()?.byId("avgRating") as Label
->        const compositeBindings = label.getBinding("text") as CompositeBinding
->        compositeBindings.getBindings()[0].refresh()
->        ratingIndicator.setEnabled(false);
->    }).catch((error: Error) => {
->        MessageToast.show(error.message);
->    });
->}
+>   public async onCreateRating(event: RatingIndicator$ChangeEvent) {
+>       const ratingIndicator = event.getSource();
+>       const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+>       operation.invoke().then(() => {
+>           console.log("logging the result...", operation.getBoundContext().getObject());
+>           MessageToast.show("Rating submitted.");
+>           const label = this.getView()?.byId("avgRating") as Label
+>           const compositeBindings = label.getBinding("text") as CompositeBinding
+>           compositeBindings.getBindings()[0].refresh()
+>           ratingIndicator.setEnabled(false);
+>       }).catch((error: Error) => {
+>           MessageToast.show(error.message);
+>       });
+>   }
 >```
 
 </details>

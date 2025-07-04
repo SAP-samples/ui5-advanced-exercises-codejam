@@ -7,7 +7,8 @@ By the end of this chapter we will have prepared our CAP server for the scenario
 - [1. Replace the data model](#1-replace-the-data-model)<br>
 - [2. Add sample data](#2-add-sample-data)<br>
 - [3. Add a service definition](#3-add-a-service-definition)<br>
-- [4. Test the CAP server](#4-test-the-cap-server)<br>
+- [4. Add service implementation](#4-add-service-implementation)<br>
+- [5. Test the CAP server](#5-test-the-cap-server)<br>
 
 ### 1. Replace the data model
 
@@ -87,7 +88,29 @@ service CatalogService {
 }
 ```
 
-### 4. Test the CAP server
+### 4. Add service implementation
+
+➡️ Create a new file `codejam.supermarket/server/srv/cat-service.js` and add the following code:
+
+```javascript
+module.exports = function CatalogService() {
+	this.on("getAvgRating", async () => {
+		const ratings = await SELECT("rating").from("Ratings")
+		const avg = ratings.map(r => r.rating).reduce((a,b) => a + b)/ratings.length
+		return avg.toFixed(2)
+	})
+
+	this.on("createRating", async ({ data: { rating } }) => {
+		const result = await INSERT({ rating }).into("Ratings")
+		const entries = [...result]
+		return await SELECT.one.from("Ratings").where({ ID: entries[0].ID })
+	})
+}
+```
+
+We added a service implementation for the defined action and function from the previous step. We will need these in a later chapter.
+
+### 5. Test the CAP server
 
 ➡️ Refresh your browser window at `http://localhost:4004/` and inspect the service enpoints. In case you closed your server, restart it with the following command from the project root:
 

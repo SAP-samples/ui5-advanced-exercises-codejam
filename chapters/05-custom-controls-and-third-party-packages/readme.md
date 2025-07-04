@@ -14,8 +14,9 @@ By the end of this chapter we will have built a custom control that uses a third
 - [8. Add the renderer](#8-add-the-renderer)<br>
 - [9. Use the custom control](#9-use-the-custom-control)<br>
 - [10. Add CSS styling](#10-add-css-styling)<br>
-- [11. Use custom control methods in controller](#11-use-custom-control-methods-in-controller)<br>
-- [12. Test the custom control](#12-test-the-custom-control)<br>
+- [11. Add CSS resource to `manifest.json`](#11-add-css-resource-to-manifestjson)<br>
+- [12. Use custom control methods in controller](#12-use-custom-control-methods-in-controller)<br>
+- [13. Test the custom control](#13-test-the-custom-control)<br>
 
 ### 1. Move 3D model into the application
 
@@ -29,13 +30,11 @@ mv ../application/uimodule/webapp/supermarket.glb uimodule/webapp/
 
 ### 2. Install required dependencies
 
-➡️ Run the following command in the `codejam.supermarket/uimodule` directory:
+➡️ Run the following commands in the `codejam.supermarket/` directory:
 
 ```bash
+cd uimodule/
 npm i ui5-tooling-modules @ui5/ts-interface-generator -D
-```
-
-```bash
 npm i three gsap
 ```
 
@@ -118,7 +117,7 @@ Feel free to check out the UI5 documentation for [guidelines on how to develop c
 
 ### 5. Define metadata and private variables
 
-➡️ Replace the `metadata` and the `// placeholder for some private variables` in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
+➡️ Replace the empty `metadata` and the `// placeholder for some private variables` in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
 ```typescript
 	static readonly metadata: MetadataOptions = {
@@ -159,7 +158,7 @@ The above metadata (incl. properties and aggregations) and variables lay the fou
 
 ### 6. Add lifecycle logic
 
-➡️ Replace the `init()` and `onAfterRendering()` methods in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
+➡️ Replace the empty `init()` and `onAfterRendering()` methods in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
 ```typescript
 	init(): void {
@@ -217,7 +216,7 @@ In the `onAfterRendering()` method, which gets executed after the control has be
 
 ### 7. Add control specific methods
 
-➡️ Add the following methods to the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file:
+➡️ Replace the empty `animate()`, `setCameraPosition()`, and `expand()` methods in the `codejam.supermarket/uimodule/webapp/ext/control/Supermarket.ts` file with the following code:
 
 ```typescript
 	private animate(): void {
@@ -300,7 +299,7 @@ The renderer is responsible for creating the HTML elements that make up our cust
 
 Now that we have our custom control ready, we can use it in our UI5 app.
 
- Add the following code to the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file (it doesn't really matter where, as we will set a fixed position in the next step):
+➡️ Add the following code to the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file (it doesn't really matter where, as we will set a fixed position in the next step):
 
 ```xml
 			<FlexBox class="fixed">
@@ -337,9 +336,19 @@ xmlns:cc="uimodule.ext.control"
 
 This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom control when used in the XML view. Arguably, we could have included the `FlexBox` along with the styling as part of our custom control itself, but it makes sense to keep the custom control as independent as possible, and let the developer who uses it decide how to position it.
 
-### 11. Use custom control methods in controller
+### 11. Add CSS resource to `manifest.json`
 
-➡️ Add the following code to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
+➡️ Add the following code to the `sap.ui5.resources.css` section in the `codejam.supermarket/uimodule/webapp/manifest.json` file:
+
+```json
+				{
+					"uri": "css/style.css"
+				}
+```
+
+### 12. Use custom control methods in controller
+
+➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
 ```typescript
 	public onFlyToProduct(event: Button$PressEvent): void {
@@ -352,11 +361,18 @@ This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom co
 	}
 ```
 
+➡️ Also make sure to add the following imports to the top of the same file:
+
+```typescript
+import { Button$PressEvent } from "sap/m/Button";
+import Supermarket from "../control/Supermarket";
+```
+
 With this method (which is invoked on the `press` event of the product tiles - check the xml view), we can fly to a specific product in the 3D model. For that, we first get the data for the position of the product from its context, and then use this data for the `setCameraPosition` method (after using `expand`) of our supermarket custom control.
 
 If you feel like it, you can test the code completion (powered by TypeScript) by typing `supermarket.` at the end of the method. You should see all available methods (obviously only the public ones) plus their documentation inside your IDE. Pretty nice, isn't it?
 
-### 12. Test the custom control
+### 13. Test the custom control
 
 ➡️ Refresh your browser window at `http://localhost:4004/` and test the application. In case you closed your server, restart it with the following command from the project root:
 

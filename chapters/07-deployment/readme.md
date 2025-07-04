@@ -71,16 +71,3 @@ The deployment of the application may take a while, as the `supermarket.glb` fil
 ➡️ Open the URL provided in the terminal output to test the deployed application.
 
 ![application](./application.png)
-
-
-
-
-
-
-
-deploy CAP backend
-Subscribe to app-front
-Add users to IAS tenant
-Create role collection with roles in BTP Cockpit
-afctl login
-afctl push dist -c conf.json -l

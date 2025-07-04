@@ -33,6 +33,7 @@ We want to build an app that allow users to browse and search a list of products
 					class="sapUiMediumMarginTop" />
 				<Panel class="sapUiMediumMarginTop">
 					<SearchField
+                        id="searchField"
 						placeholder="Find products"
 						liveChange=".onSearchProducts"
 						width="480px" />
@@ -46,6 +47,7 @@ We want to build an app that allow users to browse and search a list of products
 					<GenericTile
 						header="{title}"
 						subheader="{category_name}"
+						press=".onFlyToProduct"
 						class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
 						<TileContent>
 							<ImageContent src="{image}" />
@@ -62,7 +64,7 @@ We added basic UI5 controls to the main view custom page. As we call these exerc
 
 ### 2. Add TypeScript controller code for the search feature
 
-➡️ Add the following function to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
+➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
 ```typescript
 public onSearchProducts(event: SearchField$LiveChangeEvent): void {
@@ -120,5 +122,16 @@ npm run dev:server
 The application now contains a list of products and the search field. Feel free to test the search, which by the way in case insensitive (the filter was instantiated using `caseSensitive: false`).
 
 ![application](./application.png)
+
+## Further question to discuss
+
+<details>
+<summary>Do you know why our `main` view and controller are nested inside an `ext/` directory, instead of using the usual freestyle UI5 structure of `webapp/view/` and `webapp/controller/`? (The answer is in the question already.)</summary>
+
+<br>
+
+> We use the SAP Fiori elements flexible programming model (FPM) for our UI5 application (instead of going full freestyle), which allows us to use custom pages and fragments within the boundaries of SAP Fiori elements. The `ext/` directory is a convention used by the FPM to indicate that the view and controller are extensions of the main view and controller. This allows us to keep the custom code separate from the generated (framework) code, making it easier to maintain and update the application in the future.
+
+</details>
 
 Continue to [Chapter 04 - Adding OData V4 Actions and Debugging](/chapters/04-adding-odata-v4-actions-and-debugging/)
