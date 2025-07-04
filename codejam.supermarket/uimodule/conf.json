@@ -35,12 +35,12 @@
 	"destinations": [
 		{
 			"name": "backend",
-			"url": "https://developer-advocates-free-tier-central-hana-cloud-instan2e593ec9.cfapps.us10.hana.ondemand.com",
+			"url": "https://developer-advocates-free-tier-central-hana-cloud-instan6cbdb864.cfapps.us10.hana.ondemand.com",
 			"forwardAuthToken": true
 		},
 		{
 			"name": "ui5",
-			"url": "https://ui5.sap.com"
+			"url": "https://ui5.sap.com/1.128.0"
 		}
 	]
 }

@@ -25,6 +25,15 @@ server:
       configuration:
         test:
           - framework: Qunit
+    # - name: fiori-tools-proxy
+    #   afterMiddleware: ui5-tooling-modules-middleware
+    #   configuration:
+    #     ignoreCertError: false
+    #     ui5:
+    #       path:
+    #       - /resources
+    #       url: https://ui5.sap.com
+    #       version: 1.128.0
 builder:
   customTasks:
     # - name: ui5-task-zipper
@@ -40,7 +49,10 @@ builder:
         transformModulesToUI5:
           overridesToOverride: true
     - name: ui5-tooling-modules-task
-      afterTask: replaceVersion
+      afterTask: ui5-tooling-transpile-task
+      configuration:
+        prependPathMappings: true
+
 framework:
   libraries:
     - name: sap.m
