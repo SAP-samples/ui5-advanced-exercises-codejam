@@ -40,18 +40,4 @@ export default class MainPage extends Opa5 {
 			errorMessage: "Did not find the tile"
 		});
 	}
-
-	/*
-	iShouldNotSeeTheHelloDialog() {
-		this.waitFor({
-			controlType: "sap.m.App", // dummy, I just want a check function, where I can search the DOM. Probably there is a better way for a NEGATIVE test (NO dialog).
-			check: function () {
-				return document.querySelectorAll(".sapMDialog").length === 0;
-			},
-			success: function () {
-				Opa5.assert.ok(true, "No dialog is open");
-			}
-		});
-	}
-	*/
 }

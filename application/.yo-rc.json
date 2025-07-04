@@ -5,10 +5,10 @@
     "uimoduleName": "uimodule",
     "enableFPM": true,
     "enableTypescript": true,
-    "enableFioriTools": false,
+    "enableFioriTools": true,
     "platform": "Static webserver",
     "ui5Libs": "Local resources (SAPUI5)",
-    "newDir": false,
+    "newDir": true,
     "initRepo": false,
     "projectId": "codejam.supermarket",
     "uimodules": [

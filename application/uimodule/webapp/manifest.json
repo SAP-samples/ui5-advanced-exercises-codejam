@@ -1,109 +1,109 @@
 {
-    "_version": "1.60.0",
-    "sap.app": {
-        "id": "uimodule",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "",
-            "version": ""
-        },
-        "dataSources": {
-            "defaultDataSource": {
-                "uri": "/odata/v4/catalog/",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "4.0"
-                }
-            }
-        }
-    },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
-    },
-    "sap.ui5": {
-        "flexEnabled": true,
-        "dependencies": {
-            "minUI5Version": "1.128.1",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {},
-                "sap.fe.templates": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "uimodule.i18n.i18n"
-                }
-            },
-            "": {
-                "dataSource": "defaultDataSource",
-                "preload": true,
-                "settings": {
-                    "synchronizationMode": "None",
-                    "operationMode": "Server",
-                    "autoExpandSelect": true,
-                    "earlyRequests": true
-                }
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        },
-        "routing": {
-            "config": {},
-            "routes": [
-                {
-                    "name": "ProductsMain",
-                    "pattern": ":?query:",
-                    "target": "ProductsMain"
-                }
-            ],
-            "targets": {
-                "ProductsMain": {
-                    "type": "Component",
-                    "id": "ProductsMain",
-                    "name": "sap.fe.core.fpm",
-                    "options": {
-                        "settings": {
-                            "navigation": {},
-                            "contextPath": "/Products",
-                            "viewName": "uimodule.ext.main.Main"
-                        }
-                    }
-                }
-            }
-        }
-    }
+	"_version": "1.60.0",
+	"sap.app": {
+		"id": "uimodule",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "",
+			"version": ""
+		},
+		"dataSources": {
+			"defaultDataSource": {
+				"uri": "/odata/v4/catalog/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"localUri": "localService/metadata.xml",
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.136.2",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "uimodule.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "defaultDataSource",
+				"preload": true,
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {},
+			"routes": [
+				{
+					"name": "ProductsMain",
+					"pattern": ":?query:",
+					"target": "ProductsMain"
+				}
+			],
+			"targets": {
+				"ProductsMain": {
+					"type": "Component",
+					"id": "ProductsMain",
+					"name": "sap.fe.core.fpm",
+					"options": {
+						"settings": {
+							"navigation": {},
+							"contextPath": "/Products",
+							"viewName": "uimodule.ext.main.Main"
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -487,7 +487,7 @@ You will notice how the *WDI5* tests are executed in the browser, similar to the
 
 In the past, *Karma* was used for the automated execution of *QUnit* and/or *OPA* tests. As *Karma* has been deprecated, two alternatives emerged:
 
-1. [UI5 Test Runner](https://arnaudbuchholz.github.io/ui5-test-runner/)
+1. [ui5-test-runner](https://arnaudbuchholz.github.io/ui5-test-runner/)
 1. [wdio-qunit-service](https://webdriver.io/docs/wdio-qunit-service/)
 
 Both can be seen as drop-in replacement to *Karma*, but *wdio-qunit-service* makes most sense, if *WDI5* is already in use. The [openui5-sample-app](https://github.com/SAP/openui5-sample-app) is using the `ui5-test-runner`, which is why we also use it here. Luckily, there is not much configuration to do - we only have to install the package and add a script to our `package.json` file.

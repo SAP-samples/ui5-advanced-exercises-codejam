@@ -1,4 +1,4 @@
-import { wdi5Config } from "wdio-ui5-service";
+import { wdi5Config } from "wdio-ui5-service"
 
 export const config: wdi5Config = {
     // ====================
@@ -141,7 +141,7 @@ export const config: wdi5Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: "http://localhost:8080/index.html",
+    baseUrl: "http://localhost:4004/uimodule/index.html",
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -334,4 +334,4 @@ export const config: wdi5Config = {
      */
     // onReload: function(oldSessionId, newSessionId) {
     // }
-};
+}

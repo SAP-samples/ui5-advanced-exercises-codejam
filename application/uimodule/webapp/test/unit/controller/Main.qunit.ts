@@ -2,7 +2,6 @@ import Main from "uimodule/ext/main/Main.controller";
 
 QUnit.module("Sample Main controller test");
 
-QUnit.test("The Main controller class has a sayHello method", function (assert) {
-	// as a very basic test example just check the presence of the "sayHello" method
+QUnit.test("The Main controller class has a onFlyToProduct method", function (assert) {
 	assert.strictEqual(typeof Main.prototype.onFlyToProduct, "function");
 });

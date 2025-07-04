@@ -8,7 +8,6 @@
 	controllerName="uimodule.ext.main.Main"
 	xmlns:cc="uimodule.ext.control">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
-	<!-- <f:Shellbar title="Supermarket" /> -->
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
 			<VBox alignItems="Center">
 				<Title
@@ -23,7 +22,6 @@
 						liveChange=".onSearchProducts"
 						width="480px" />
 				</Panel>
-				<!-- </VBox> -->
 				<HBox
 					id="products"
 					items="{path: '/Products', parameters: { '$select': '*' }}"
@@ -50,10 +48,10 @@
 					value="{$Parameter/rating}"
 					class="sapUiSmallMarginBottom" />
 				<Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
-			</VBox>	
-			<FlexBox class="fixed">
-				<cc:Supermarket id="supermarket" growFactor="2" />
-			</FlexBox>
+			</VBox>
 		</VBox>
+		<FlexBox class="fixed">
+			<!-- <cc:Supermarket id="supermarket" /> -->
+		</FlexBox>
 	</Page>
 </mvc:View>
