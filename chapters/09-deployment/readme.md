@@ -61,6 +61,8 @@ https://ui5.sap.com/1.108/resources/sap-ui-core.js
 
 Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
 
+> Note: After deploying the application successfully, you might notice that the rating indicator doesn't work as expected. This is due to the newer `invoke()` method that we use in the `onCreateRating()` method not being available in this older version of SAPUI5.
+
 ### 7. Deploy the project
 
 ➡️ Make sure you have the Cloud Foundry CLI installed on your machine: [https://developers.sap.com/tutorials/cp-cf-download-cli.html]()
