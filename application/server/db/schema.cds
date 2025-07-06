@@ -13,7 +13,7 @@ entity Products {
 
 entity Categories {
     key name     : String;
-        products : Association to many Products;
+        products : Association to many Products on products.category = $self;
 }
 
 entity Ratings: cuid, managed {

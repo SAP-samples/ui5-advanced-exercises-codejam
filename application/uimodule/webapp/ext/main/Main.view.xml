@@ -17,7 +17,7 @@
 					class="sapUiMediumMarginTop" />
 				<Panel class="sapUiMediumMarginTop">
 					<SearchField
-						id="searchField"
+                        id="searchField"
 						placeholder="Find products"
 						liveChange=".onSearchProducts"
 						width="480px" />
@@ -49,9 +49,9 @@
 					class="sapUiSmallMarginBottom" />
 				<Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
 			</VBox>
+			<FlexBox class="fixed">
+				<cc:Supermarket id="supermarket" />
+			</FlexBox>
 		</VBox>
-		<FlexBox class="fixed">
-			<!-- <cc:Supermarket id="supermarket" /> -->
-		</FlexBox>
 	</Page>
 </mvc:View>

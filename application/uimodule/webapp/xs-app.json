@@ -1,0 +1,23 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "/odata/v4/catalog/(.*)",
+            "destination": "server",
+            "authenticationType": "ias",
+            "csrfProtection": false
+        },
+        {
+            "source": "/user-api/currentUser$",
+            "target": "/currentUser",
+            "service": "sap-approuter-userapi"
+        },
+        {
+            "source": "^(.*)$",
+            "target": "$1",
+            "service": "app-front",
+            "authenticationType": "ias"
+        }
+    ]
+}

@@ -8,51 +8,67 @@ build-parameters:
         - npm install
         - npm run build:workspaces
 modules:
-  - name: codejam.supermarket
-    type: staticfile
-    path: dist
+  - name: codejam.supermarket-ui-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: codejam.supermarket-auth
+      - name: codejam.supermarket-app-front
+        parameters:
+          content-target: true
+      - name: srv-api
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - dist/uimodule-content.zip
+          name: uimodule
+          target-path: resources/
     parameters:
-      disk-quota: 256M
-      memory: 256M
-  - name: codejam.supermarket-server-postgres-deployer
-    type: nodejs
-    path: server/gen/pg
+      config:
+        destinations:
+          - name: server
+            url: ~{srv-api/srv-url}
+            forwardAuthToken: true
+  - name: uimodule
+    type: html5
+    path: uimodule
+    build-parameters:
+      supported-platforms: []
+  - name: codejam.supermarket-server-db-deployer
+    type: hdb
+    path: server/gen/db
     parameters:
       buildpack: nodejs_buildpack
-      no-route: true
-      no-start: true
-      tasks:
-        - name: deploy-to-postgresql
-          command: npm start
     requires:
-      - name: codejam.supermarket-server-postgres
+      - name: codejam.supermarket-server-db
   - name: codejam.supermarket-server-srv
     type: nodejs
     path: server/gen/srv
     parameters:
       instances: 1
       buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
     provides:
       - name: srv-api
         properties:
           srv-url: ${default-url}
     requires:
       - name: codejam.supermarket-auth
-      - name: codejam.supermarket-server-postgres
+      - name: codejam.supermarket-server-db
 resources:
+  - name: codejam.supermarket-app-front
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: app-front
+      service-plan: developer
   - name: codejam.supermarket-auth
     type: org.cloudfoundry.managed-service
     parameters:
+      path: server/xs-security.json
       service: xsuaa
       service-plan: application
-      path: server/xs-security.json
-      config:
-        xsappname: server-${org}-${space}
-        tenant-mode: dedicated
-  - name: codejam.supermarket-server-postgres
-    type: org.cloudfoundry.managed-service
+  - name: codejam.supermarket-server-db
+    type: com.sap.xs.hdi-container
     parameters:
-      service: postgresql-db
-      service-plan: development
+      service: hana
+      service-plan: hdi-shared

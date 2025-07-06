@@ -6,10 +6,10 @@
     "enableFPM": true,
     "enableTypescript": true,
     "enableFioriTools": true,
-    "platform": "Static webserver",
+    "platform": "Application Frontend Service",
     "ui5Libs": "Local resources (SAPUI5)",
     "newDir": true,
-    "initRepo": false,
+    "initRepo": true,
     "projectId": "codejam.supermarket",
     "uimodules": [
       "uimodule"

@@ -40,6 +40,12 @@ builder:
         debug: true
         transformModulesToUI5:
           overridesToOverride: true
+    - name: ui5-task-zipper
+      afterTask: generateVersionInfo
+      configuration:
+        onlyZip: true
+        relativePaths: false
+        archiveName: uimodule-content
     - name: ui5-tooling-modules-task
       afterTask: ui5-tooling-transpile-task
 framework:
@@ -50,4 +56,4 @@ framework:
     - name: sap.fe.templates
     - name: sap.ui.export
   name: SAPUI5
-  version: 1.136.1
+  version: 1.136.2

@@ -12,7 +12,6 @@ import CompositeBinding from "sap/ui/model/CompositeBinding";
 import { Button$PressEvent } from "sap/m/Button";
 import Supermarket from "../control/Supermarket";
 
-
 /**
  * @namespace uimodule.ext.main
  */
