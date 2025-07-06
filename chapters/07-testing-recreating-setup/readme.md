@@ -154,8 +154,6 @@ QUnit.test("The Main controller class has a onFlyToProduct method", function (as
 });
 ```
 
-> ℹ️ To fix the issue that QUnit is unknown, go into your root tsconfig.json and add `@types/qunit` to the `types` section.
-
 ### 6. Register the list of unit tests in the test suite
 
 ➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:

@@ -67,21 +67,21 @@ We added basic UI5 controls to the main view custom page. As we call these exerc
 ➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
 ```typescript
-public onSearchProducts(event: SearchField$LiveChangeEvent): void {
-    const filter = []
-    const query = event.getParameter("newValue")
-    if (query) {
-        filter.push(new Filter({
-            path: "title",
-            operator: FilterOperator.Contains,
-            value1: query,
-            caseSensitive: false
-        }))
-    }
-    const list = this.getView()?.byId("products") as HBox
-    const binding = list.getBinding("items") as ODataListBinding
-    binding.filter(filter)
-}
+	public onSearchProducts(event: SearchField$LiveChangeEvent): void {
+		const filter = []
+		const query = event.getParameter("newValue")
+		if (query) {
+			filter.push(new Filter({
+				path: "title",
+				operator: FilterOperator.Contains,
+				value1: query,
+				caseSensitive: false
+			}))
+		}
+		const list = this.getView()?.byId("products") as HBox
+		const binding = list.getBinding("items") as ODataListBinding
+		binding.filter(filter)
+	}
 ```
 
 ➡️ Also make sure to add the following imports to the top of the same file:

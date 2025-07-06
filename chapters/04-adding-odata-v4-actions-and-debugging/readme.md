@@ -26,7 +26,6 @@ We want to add a rating indicator to our XML view, that allows user to rate the 
 					class="sapUiSmallMarginBottom" />
 				<Label id="avgRating" text="({ path: '/getAvgRating()', type: 'sap.ui.model.odata.type.Decimal' } average rating)" />
 			</VBox>
-		</VBox>
 ```
 
 We added a `<RatingIndicator />` control that uses a [deferred operation binding](https://ui5.sap.com/#/topic/b54f7895b7594c61a83fa7257fa9d13f) for the Odata V4 action `/createRating(...)`, more specifically a deferred *action* binding (action/function depending on the type of OData operation). A deferred operation binding is defined via the `(...)` syntax. It is "deferred", because it is not called immediately - unlike the simple function binding `/getAvgRating()` that is used to get the average rating from the backend. Deferred operation bindings are often called with parameters, which can be set via the `setParameter("rating", "<value>")` method or more declaratively via the `{$Parameter/rating}` syntax, which we did here.

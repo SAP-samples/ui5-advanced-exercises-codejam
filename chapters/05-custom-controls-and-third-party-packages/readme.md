@@ -14,9 +14,8 @@ By the end of this chapter we will have built a custom control that uses a third
 - [8. Add the renderer](#8-add-the-renderer)<br>
 - [9. Use the custom control](#9-use-the-custom-control)<br>
 - [10. Add CSS styling](#10-add-css-styling)<br>
-- [11. Add CSS resource to `manifest.json`](#11-add-css-resource-to-manifestjson)<br>
-- [12. Use custom control methods in controller](#12-use-custom-control-methods-in-controller)<br>
-- [13. Test the custom control](#13-test-the-custom-control)<br>
+- [11. Use custom control methods in controller](#11-use-custom-control-methods-in-controller)<br>
+- [12. Test the custom control](#12-test-the-custom-control)<br>
 
 ### 1. Move 3D model into the application
 
@@ -336,17 +335,7 @@ xmlns:cc="uimodule.ext.control"
 
 This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom control when used in the XML view. Arguably, we could have included the `FlexBox` along with the styling as part of our custom control itself, but it makes sense to keep the custom control as independent as possible, and let the developer who uses it decide how to position it.
 
-### 11. Add CSS resource to `manifest.json`
-
-➡️ Add the following code to the `sap.ui5.resources.css` section in the `codejam.supermarket/uimodule/webapp/manifest.json` file:
-
-```json
-				{
-					"uri": "css/style.css"
-				}
-```
-
-### 12. Use custom control methods in controller
+### 11. Use custom control methods in controller
 
 ➡️ Add the following method to the `codejam.supermarket/uimodule/webapp/ext/main/Main.controller.ts` file:
 
@@ -372,11 +361,12 @@ With this method (which is invoked on the `press` event of the product tiles - c
 
 If you feel like it, you can test the code completion (powered by TypeScript) by typing `supermarket.` at the end of the method. You should see all available methods (obviously only the public ones) plus their documentation inside your IDE. Pretty nice, isn't it?
 
-### 13. Test the custom control
+### 12. Test the custom control
 
 ➡️ Refresh your browser window at `http://localhost:4004/` and test the application. In case you closed your server, restart it with the following command from the project root:
 
 ```bash
+# make sure you are in the codejam.supermarket/ directory (project root)
 npm run dev:server
 ```
 

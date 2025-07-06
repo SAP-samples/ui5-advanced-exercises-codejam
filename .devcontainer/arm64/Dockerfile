@@ -28,3 +28,4 @@ RUN npm install -g @ui5/cli @sap/cds-dk yo mbt
 
 EXPOSE 8080
 EXPOSE 8081
+EXPOSE 4004
