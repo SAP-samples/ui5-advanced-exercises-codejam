@@ -1,4 +1,4 @@
-# Chapter 07 - Deployment
+# Chapter 09 - Deployment
 
 By the end of this chapter we will have deployed our application to the Application Frontend service on SAP Business Technology Platform (BTP).
 
@@ -21,7 +21,7 @@ The above configuration is necessary, because we deploy the UI5 application sepe
 ➡️ Change the `build` script in the `codejam.supermarket/uimodule/package.json` file to:
 
 ```json
-"build": "ui5 build",
+		"build": "ui5 build",
 ```
 
 A simple `ui5 build` is sufficient for our use case, as we will consume UI5 from the CDN (see `conf.json`). Our build result therefore doesn't need to be `self contained`, i.e. it doesn't need to include all UI5 libraries.

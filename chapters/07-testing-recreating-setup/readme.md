@@ -1,96 +1,25 @@
-# Chapter 06 - Testing
+# Chapter 07 - Testing: Recreating Setup
 
-By the end of this chapter, we will know how to write QUnit, OPA, and WDI5 tests for your UI5 application and how you can automate them.
+By the end of this chapter, we will know how to recreate and execute a holistic testing setup including QUnit, OPA, and WDI5 tests.
 
 ## Steps
 
-- [1. Run basic QUnit test](#1-run-basic-qunit-test)<br>
-- [2. Run basic WDI5 test](#2-run-basic-wdi5-test)<br>
-- [3. Add `testsuite.qunit.html` (test suite)](#3-add-testsuitequnithtml-test-suite)<br>
-- [4. Add `testsuite.qunit.ts` (test suite)](#4-add-testsuitequnitts-test-suite)<br>
-- [5. Add `Test.qunit.html` (test suite)](#5-add-testqunithtml-test-suite)<br>
-- [6. Add `unitTests.qunit.ts` (list of unit tests)](#6-add-unittestsqunitts-list-of-unit-tests)<br>
-- [7. Add `Main.qunit.ts` (unit test)](#7-add-mainqunitts-unit-test)<br>
-- [8. Register the list of unit tests in the test suite](#8-register-the-list-of-unit-tests-in-the-test-suite)<br>
-- [9. Run the QUnit tests](#9-run-the-qunit-tests)<br>
-- [10. Add `opaTests.qunit.ts` (list of OPA journeys)](#10-add-opatestsqunitts-list-of-opa-journeys)<br>
-- [11. Add `HelloJourney.qunit.ts` (OPA journey)](#11-add-hellojourneyqunitts-opa-journey)<br>
-- [12. Add `MainPage.ts` (page object)](#12-add-mainpagets-page-object)<br>
-- [13. Register the list of OPA journeys in the test suite](#13-register-the-list-of-opa-journeys-in-the-test-suite)<br>
-- [14. Run the QUnit tests](#14-run-the-qunit-tests)<br>
-- [15. Implement WDI5 tests](#15-implement-wdi5-tests)<br>
-- [16. Run the *WDI5* tests](#16-run-the-wdi5-tests)<br>
-- [17. Configure `ui5-test-runner` (test automation)](#17-configure-ui5-test-runner-test-automation)<br>
-- [18. Start the `ui5-test-runner`](#18-start-the-ui5-test-runner)<br>
+- [1. Add `testsuite.qunit.html` (test suite)](#1-add-testsuitequnithtml-test-suite)<br>
+- [2. Add `testsuite.qunit.ts` (test suite)](#2-add-testsuitequnitts-test-suite)<br>
+- [3. Add `Test.qunit.html` (test suite)](#3-add-testqunithtml-test-suite)<br>
+- [4. Add `unitTests.qunit.ts` (list of unit tests)](#4-add-unittestsqunitts-list-of-unit-tests)<br>
+- [5. Add `Main.qunit.ts` (unit test)](#5-add-mainqunitts-unit-test)<br>
+- [6. Register the list of unit tests in the test suite](#6-register-the-list-of-unit-tests-in-the-test-suite)<br>
+- [7. Run the QUnit tests](#7-run-the-qunit-tests)<br>
+- [8. Add `opaTests.qunit.ts` (list of OPA journeys)](#8-add-opatestsqunitts-list-of-opa-journeys)<br>
+- [9. Add `HelloJourney.qunit.ts` (OPA journey)](#9-add-hellojourneyqunitts-opa-journey)<br>
+- [10. Add `MainPage.ts` (page object)](#10-add-mainpagets-page-object)<br>
+- [11. Register the list of OPA journeys in the test suite](#11-register-the-list-of-opa-journeys-in-the-test-suite)<br>
+- [12. Run the QUnit tests](#12-run-the-qunit-tests)<br>
+- [13. Implement WDI5 tests](#13-implement-wdi5-tests)<br>
+- [14. Run the WDI5 tests](#14-run-the-wdi5-tests)<br>
 
-## Background Information
-
-*QUnit* tests are used for functional testing, allowing us to directly test our application code. *OPA* tests serve as integration tests, enabling us to simulate user interactions within the application. *WDI5* tests are end-to-end (E2E) tests that let us validate the application in a broader context, including navigation between different applications.
-
-*QUnit* or *OPA* tests are included in UI5 and can be simply executed in the browser. They can either be opened directly in the browser or be triggered using a test runner to automate the execution.
-
-The easy-ui5 project generator (that we used in [chapter 01](/chapters/01-generating-full-stack-project)) already added some basic *QUnit* and *WDI5* tests incl. configuration. The structure looks as follows:
-
-```text
-webapp
-\_ test
-   \_ e2e
-      \_ sample.test.ts
-      \_ tsconfig.json
-      \_ wdio.conf.ts
-   \_ unit
-      \_ FirstTest.js
-   \_ locate-reuse-libs.js
-```
-
-### 1. Run basic QUnit test
-
-➡️ Run the following command from the `codejam.supermarket/uimodule/` directory to execute the *QUnit* tests:
-
-```sh
-# make sure you are in the uimodule/ directory
-npm run qunit
-```
-
-This will launch the SAP Fiori tools (`fiori run ...`) which provides built-in boilerplate files to serve and run all available *QUnit* test (`*Test.js` or `*Test.ts` files in the `unit/` directory) in the browser.
-
-You might have noticed we started the `uimodule` decoupled from the backend server for the first time. We can do that in this case as the unit tests don't rely on the UI5 app to be fully functional and operating against the backend server.
-
->⚠ Although, we generated a TypeScript project, the generated QUnit test is currently using JavaScript. Feel free to change the file extension to `.ts` and remove the UI5 AMD-like code (`sap.ui.define`). Now the code looks like this:
->
->```ts
->QUnit.module("First Test", {});
->
->QUnit.test("It's just true", (assert) => {
->	assert.strictEqual(true, true);
->});
->```
-
-### 2. Run basic WDI5 test
-
-➡️ Replace the `baseUrl` value in the `codejam.supermarket/uimodule/test/e2e/wdio.conf.ts` file with the following url:
-
-```text
-http://localhost:4004/uimodule/index.html
-```
-
-➡️ Start the project as usual from the `codejam.supermarket/` directory:
-
-```sh
-# make sure you are in the codejam.supermarket/ directory (project root)
-npm run dev:server
-```
-
-➡️ Open a new terminal (don't reuse the other one!) and run the following command from the `codejam.supermarket/uimodule/` directory to execute the *WDI5* tests (testing against the already running server):
-
-```sh
-# make sure you are in the uimodule/ directory
-npm run wdi5
-```
-
-This will launch the *WDI5* tests defined in the `codejam.supermarket/uimodule/test/e2e/sample.test.ts` file. The file is functionally empty (as the actual test is being skipped) but it's still nice to know how to trigger this built-in test configuration.
-
-### 3. Add `testsuite.qunit.html` (test suite)
+### 1. Add `testsuite.qunit.html` (test suite)
 
 In case we need a bit more control over the generated files, we can also create the boilerplate files manually. This allows us to specify the *QUnit* or *Sinon* version in the test suite as well as to maintain a list of tests to be executed. The tests are triggered by the [UI5 test starter](https://sdk.openui5.org/topic/032be2cb2e1d4115af20862673bedcdb). The concept of UI5 test suite is explained here in the UI5 documentation: [https://sdk.openui5.org/#/topic/22f50c0f0b104bf3ba84620880793d3f]()
 
@@ -127,7 +56,7 @@ webapp
 </html>
 ```
 
-### 4. Add `testsuite.qunit.ts` (test suite)
+### 2. Add `testsuite.qunit.ts` (test suite)
 
 The HTML page requires a test suite which needs to be put aside.
 
@@ -162,7 +91,7 @@ export default {
 };
 ```
 
-### 5. Add `Test.qunit.html` (test suite)
+### 3. Add `Test.qunit.html` (test suite)
 
 The test suite defines a test page which is used to execute the tests declared in that file as well.
 
@@ -187,7 +116,7 @@ The test suite defines a test page which is used to execute the tests declared i
 </html>
 ```
 
-### 6. Add `unitTests.qunit.ts` (list of unit tests)
+### 4. Add `unitTests.qunit.ts` (list of unit tests)
 
 The *QUnit* tests itself are typically put into the following structure:
 
@@ -209,7 +138,7 @@ The `unitTests.qunit.ts` file lists the individual *QUnit* test pages to be exec
 import "./controller/Main.qunit";
 ```
 
-### 7. Add `Main.qunit.ts` (unit test)
+### 5. Add `Main.qunit.ts` (unit test)
 
 The `Main.qunit.ts` file now defines *QUnit* modules and tests. A very basic check is to test the availability of a function in the `Main.controller` of the application.
 
@@ -227,7 +156,7 @@ QUnit.test("The Main controller class has a onFlyToProduct method", function (as
 
 > ℹ️ To fix the issue that QUnit is unknown, go into your root tsconfig.json and add `@types/qunit` to the `types` section.
 
-### 8. Register the list of unit tests in the test suite
+### 6. Register the list of unit tests in the test suite
 
 ➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
 
@@ -239,7 +168,7 @@ QUnit.test("The Main controller class has a onFlyToProduct method", function (as
 
 With this step we registered the list of unit tests (`unitTests.qunit.ts`) in the test suite.
 
-### 9. Run the *QUnit* tests
+### 7. Run the *QUnit* tests
 
 We can now run our *QUnit* tests in the browser.
 
@@ -247,12 +176,15 @@ We can now run our *QUnit* tests in the browser.
 
 ```sh
 # make sure you are in the uimodule/ directory
-npm run start
+npm start
 ```
 
 ➡️ Open the test suite at [http://localhost:8080/test/testsuite.qunit.html]() to run the *QUnit* tests. You can run all tests at once by pressing **Run All** or click on the individual *QUnit* tests to execute.
 
-### 10. Add `opaTests.qunit.ts` (list of OPA journeys)
+![Qunit runn all](qunit-run-all.png)
+![Qunit test results](qunit-results.png)
+
+### 8. Add `opaTests.qunit.ts` (list of OPA journeys)
 
 *OPA* tests typically consist of journeys and page objects. They are typically put into the following structure:
 
@@ -275,7 +207,7 @@ The `opaTests.qunit.ts` file lists the individual *OPA* journeys to be executed 
 import "./HelloJourney.qunit";
 ```
 
-### 11. Add `HelloJourney.qunit.ts` (OPA journey)
+### 9. Add `HelloJourney.qunit.ts` (OPA journey)
 
 The `HelloJourney.qunit.ts` implements the test journey to simulate an interaction with the application.
 
@@ -312,7 +244,7 @@ opaTest("Should search for Coca-Cola", function () {
 In this journey we open the application, search for "Coca" and check that a single tile is visible with "Coca-Cola" as title.
 Typically, the actions and assertions calls itself are outsourced to so-called page objects. Page objects are related to a single view - in our case to the `Main` view.
 
-### 12. Add `MainPage.ts` (page object)
+### 10. Add `MainPage.ts` (page object)
 
 The page object implements actions to interact and assertions to check the behavior of the UI.
 
@@ -364,7 +296,7 @@ export default class MainPage extends Opa5 {
 }
 ```
 
-### 13. Register the list of OPA journeys in the test suite
+### 11. Register the list of OPA journeys in the test suite
 
 ➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
 
@@ -378,7 +310,7 @@ export default class MainPage extends Opa5 {
 
 Now, you can run your *OPA* tests in the browser together with the *QUnit* tests by starting the project with the command line `npm run start:uimodule` in the `application` directory. After the server is running, you can open the testsuite with the following URL: [http://localhost:8080/test/testsuite.qunit.html]() (ensure that the same port is used) and press **Run All** or click on the individual *OPA* test to execute.
 
-### 14. Run the *QUnit* tests
+### 12. Run the *QUnit* tests
 
 We can now run our *OPA* (integration) tests (together with the unit tests from before) in the browser. But this time we need to start the whole project, including the backend server, as we are testing the app in action and therefore need it to be fully functional.
 
@@ -391,8 +323,10 @@ npm run dev:server
 
 ➡️ Open the test suite at [http://localhost:4004/uimodule/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
 
+![Qunit runn all](qunit-run-all2.png)
+![Qunit test results](qunit-results2.png)
 
-### 15. Implement *WDI5* tests
+### 13. Implement *WDI5* tests
 
 The initial project template already came with the boilerplate for *WDI5* tests. We have already used the basic configuration to start a simple test at the beginning of this chapter ([step 2](#2-run-basic-wdi5-test)).
 
@@ -463,7 +397,7 @@ describe("samples", () => {
 });
 ```
 
-### 16. Run the *WDI5* tests
+### 14. Run the *WDI5* tests
 
 To run the *WDI5* tests, we need to start the project as usual from the project root, including the backend server.
 
@@ -483,47 +417,6 @@ npm run wdi5
 
 You will notice how the *WDI5* tests are executed in the browser, similar to the *OPA* tests. The test results are displayed in the terminal.
 
-### 17. Configure `ui5-test-runner` (test automation)
+![WDI5 results](wdi5-results.png)
 
-In the past, *Karma* was used for the automated execution of *QUnit* and/or *OPA* tests. As *Karma* has been deprecated, two alternatives emerged:
-
-1. [ui5-test-runner](https://arnaudbuchholz.github.io/ui5-test-runner/)
-1. [wdio-qunit-service](https://webdriver.io/docs/wdio-qunit-service/)
-
-Both can be seen as drop-in replacement to *Karma*, but *wdio-qunit-service* makes most sense, if *WDI5* is already in use. The [openui5-sample-app](https://github.com/SAP/openui5-sample-app) is using the `ui5-test-runner`, which is why we also use it here. Luckily, there is not much configuration to do - we only have to install the package and add a script to our `package.json` file.
-
-➡️ Run the following command from the `codejam.supermarket/uimodule/` directory:
-
-```sh
-# make sure you are in the uimodule/ directory
-npm install ui5-test-runner -D
-```
-
-➡️ Add the following code to the `scripts` section of the `codejam.supermarket/uimodule/package.json` file:
-
-```json
-,
-		"test-runner": "ui5-test-runner --url http://localhost:4004/uimodule/test/testsuite.qunit.html --report-dir webapp/report"
-```
-
-### 18. Start the `ui5-test-runner`
-
-To start the `ui5-test-runner`, we need to start the project as usual from the project root, including the backend server.
-
-➡️ Run the following command from the `codejam.supermarket/` directory:
-
-```sh
-# make sure you are in the codejam.supermarket/ directory (project root)
-npm run dev:server
-```
-
-➡️ Open a new terminal (don't reuse the other one!) and run the following command from the `codejam.supermarket/uimodule/` directory to start the tests:
-
-```sh
-# make sure you are in the uimodule/ directory
-npm run test-runner
-```
-
-You'll notice how the tests are being executed [headless](https://en.wikipedia.org/wiki/Headless_browser). Feel free to inspect the test results at [http://localhost:4004/uimodule/report/report.html]().
-
-Continue to [Chapter 07 - Deployment](/chapters/07-deployment/)
+Continue to [Chapter 08 - Testing: Automating Tests](/chapters/08-testing-automating-tests/)

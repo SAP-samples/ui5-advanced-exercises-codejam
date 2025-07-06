@@ -384,4 +384,4 @@ The application now includes the custom control that uses third-party packages. 
 
 ![application](./application.gif)
 
-Continue to [Chapter 06 - Testing](/chapters/06-testing/)
+Continue to [Chapter 06 - Testing: Current Project Setup](/chapters/06-testing-current-project-setup/)
