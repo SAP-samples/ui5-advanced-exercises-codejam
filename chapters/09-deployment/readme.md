@@ -4,70 +4,89 @@ By the end of this chapter we will have deployed our application to the Applicat
 
 ## Steps
 
-### 1. Add `conf.json` file
+- [1. Get an account on SAP BTP trial and configure SAP Cloud Identity Services](#1-get-an-account-on-sap-btp-trial-and-configure-sap-cloud-identity-services)<br>
+- [2. Provision an instance of SAP HANA Cloud](#2-provision-an-instance-of-sap-hana-cloud)<br>
+- [3. Entitle the Application Frontend Service](#3-entitle-the-application-frontend-service)<br>
+- [4. Subscribe to the Application Frontend Service](#4-subscribe-to-the-application-frontend-service)<br>
+- [5. Create role collections and assign them to your user](#5-create-role-collections-and-assign-them-to-your-user)<br>
+- [6. Edit uimodule to use the CDN](#6-edit-uimodule-to-use-the-cdn)<br>
+- [7. Deploy the project](#7-deploy-the-project)<br>
+- [8. Access the deployed application](#8-access-the-deployed-application)<br>
 
-The [Application Frontend service](https://help.sap.com/docs/application-frontend-service/application-frontend-service/what-is-application-frontend-service) on SAP BTP let's us deploy frontend applications in a very simple way using a single command (which we will get to shortly), but in order for our application to be functional, it requires some connection details. Specifically we need to provide destination configuration details for the CAP backend service and the UI5 CDN, as well an XSUAA service key from the service instance that the backend service is protected with. The Application Frontend service uses a managed [approuter](https://www.npmjs.com/package/@sap/approuter) under the hood to process these configuration details.
+### 1. Get an account on SAP BTP trial and configure SAP Cloud Identity Services
 
-➡️ Create a new `codejam.supermarket/uimodule/conf.json` file with the following content:
+The [Application Frontend Service](https://help.sap.com/docs/application-frontend-service/application-frontend-service/what-is-application-frontend-service) on SAP BTP allows us to deploy frontend applications in two ways: (1) via MTAs (Multi-Target Applications) and (2) via the [`afctl`](https://www.npmjs.com/package/@sap/appfront-cli) command line interface. This offers great flexibility, as we can deploy the whole project via an MTA once, and then hot-deploy only the frontend only if we make changes along the way. It's also possible to exclusively use the `afctl` approach if we wanted to.
+Generally speaking, the Application Frontend service provides a managed [approuter](https://www.npmjs.com/package/@sap/approuter), that's allows us to handle user request and connect to other system, without requiring a separate application.
+
+➡️ Follow these instructions on how to create an account on SAP BTP trial and configure the SAP Cloud Identity Services to use it with the Application Frontend Service: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/setup-in-sap-btp-trial]() 
+
+### 2. Provision an instance of SAP HANA Cloud
+
+➡️ Follow the instruction of the following tutorial (and other tutorials it is linking to): [https://developers.sap.com/tutorials/hana-cloud-deploying.html]()
+
+### 3. Entitle the Application Frontend Service
+
+➡️ Go into the **Entitlements** section of your SAP BTP trial account and add the **Application Frontend Service** to your account. Add both the `trial` and `developer` plans:
+
+![entitlements](entitlements.png)
+![service plans](service-plans.png)
+
+### 4. Subscribe to the Application Frontend Service
+
+➡️ Go into the **Instances and Subscriptions** section of your SAP BTP trial account and create a new subscription to the **Application Frontend Service**. Select the `trial` plan:
+
+![subscription](subscription.png)
+
+### 5. Create role collections and assign them to your user
+
+➡️ Follow these instructions: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/creating-role-collections-and-assigning-them-to-users]()a
+
+### 6. Edit uimodule to use the CDN
+
+Our project is actually already configured to use the Application Frontend Service, as we configured the deployment target during the project generation in [chapter 01](/chapters/01-generating-a-full-stack-project/). We only have to two small tweaks to make it work for our scenario: To make the build result of our application smaller, we want to use consume the UI5 libraries via the CDN, instead of bundling them into our application (our application is already quite big due to the 3D model).
+
+➡️ Replace the current `build` script in the `codejam.supermarket/uimodule/package.json` file with the following code:
 
 ```json
-
+        "build": "ui5 build",
 ```
 
-The above configuration is necessary, because we deploy the UI5 application seperately from the CAP backend service, which is conveniently already deployed for us (at `https://developer-advocates-free-tier-central-hana-cloud-instan6cbdb864.cfapps.us10.hana.ondemand.com`). This backend service is protected with XSUAA, which is why we need to provide a service key, so that the managed approuter of the Application Frontend service can handle the authentication and authorization for us.
+We removed the `self-contained` option from the build script, as we don't want to bundle the UI5 libraries into our application.
 
-### 2. Modify the `build` script of the uimodule
+➡️ Replace the UI5 bootstrap url (`src`) in the `codejam.supermarket/uimodule/webapp/index.html` file with the following url:
 
-➡️ Change the `build` script in the `codejam.supermarket/uimodule/package.json` file to:
-
-```json
-		"build": "ui5 build",
+```text
+https://ui5.sap.com/1.108/resources/sap-ui-core.js
 ```
 
-A simple `ui5 build` is sufficient for our use case, as we will consume UI5 from the CDN (see `conf.json`). Our build result therefore doesn't need to be `self contained`, i.e. it doesn't need to include all UI5 libraries.
+Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of the SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
 
-### 3. Build the uimodule
+### 7. Deploy the project
 
-➡️ Execute the following command from the `codejam.supermarket/uimodule/` directory:
+➡️ Make sure you have the Cloud Foundry CLI installed on your machine: [https://developers.sap.com/tutorials/cp-cf-download-cli..html]()
+
+➡️ Login to your SAP BTP trial account (you can find your API endpoint on the overview page of your SAP BTP subaccount):
 
 ```bash
+cf login -a <API_ENDPOINT>
+```
+
+➡️ Build and deploy your project with the following commands:
+
+```
+#make sure you are in the codejam.supermarket directory (project root)
 npm run build
+npm run deploy
 ```
 
-This will create a `dist` directory in the `uimodule` directory, which contains the build result of our UI5 application.
+### 8. Access the deployed application
 
-### 4. Install the `afctl` CLI tool
+➡️ Go to the **HTML5** > **Application Frontend** section in your SAP BTP trial account and open the `uimodule` application. You will have to log in with the account you created as part of [step 1](#get-an-account-on-sap-btp-trial-and-configure-sap-cloud-identity-services):
 
-The Application Frontend service provides a command line tool called [`afctl`](https://www.npmjs.com/package/@sap/appfront-cli) to deploy applications to the service. This tool is available as an npm package.
-
-➡️ Execute the following command in the terminal to install `afctl` globally:
-
-```bash
-npm i @sap/appfront-cli -g
-```
-
-Alternatively, we could also install the tool locally (as part of this project), but it's more convenient to have a available globally, as we will frequently have to login and perhaps use other commands as well (activate other versions, get logs, etc.).
-
-### 5. Login to the Application Frontend service
-
-➡️ Execute the following command in the terminal and follow the instructions to log in to the Application Frontend service:
-
-```bash
-afctl login -a https://api.us10.dt.appfront.cloud.sap?apptid=f1817fd2-ea17-40b6-9e78-21248300aae4 --sso
-```
-
-### 6. Deploy the application
-
-➡️ Execute the following command from the `codejam.supermarket/uimodule/` directory to deploy the application:
-
-```bash
-afctl push dist -c conf.json -l
-```
-
-The deployment of the application may take a while, as the `supermarket.glb` file is quite large (around 70MB). If you are interested, you can add a verbose flag (`-v`) to the above command to get more details about the deployment process.
-
-### 7. Test the application
-
-➡️ Open the URL provided in the terminal output to test the deployed application.
-
+![application-frontend](application-frontend.png)
 ![application](./application.png)
+
+## Further questions to discuss
+
+- How did you like this SAP CodeJam?
+- Why are you still here? Enjoy your ["Feierabend"](https://expath.com/knowledge-base/germany/what-does-feierabend-mean)!

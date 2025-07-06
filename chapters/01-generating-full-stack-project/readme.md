@@ -41,7 +41,7 @@ yo easy-ui5 project project
 |Do you want to enable the SAP Fiori elements flexible programming model?|`Yes`|
 |Do you want to use the awesomeness of TypeScript?|`Yes`|
 |Do you want the module to be visible in the SAP Fiori tools?|`Yes`|
-|On which platform would you like to host the application?|`Static webserver`|
+|On which platform would you like to host the application?|`Application Frontend Service`|
 |Where should your UI5 libs be served from?|`Local resources (SAPUI5)`|
 |Would you like to create a new directory for the project?|`Yes`|
 |Would you like to initialize a local git repository for the project?|`Yes`|
@@ -84,7 +84,7 @@ yo easy-ui5 project cap
 |Prompt|Answer|
 |---|---|
 |How do you want to name your new SAP CAP server module?|`server`|
-|Which CAP capabilities do you want to add?|`<Enter>` *(choose defaults)*|
+|Which CAP capabilities do you want to add?|**select** `hana`, **unselect** `postgres`|
 |Do you want to add the SAP CAP service as the default model to your uimodule?|`Yes`|
 |*Accept to install packages and overwrite existing files.*||
 
