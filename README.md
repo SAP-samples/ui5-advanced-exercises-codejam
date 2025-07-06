@@ -10,7 +10,7 @@ Please check the [prerequisites](/chapters/00-prep-dev-environment/readme.md#1-p
 
 The material in this repository builds on top of the [core principles of UI5](https://github.com/SAP-Samples/ui5-exercises-codejam), introducing you to more advanced topics and techniques. This repository is a step-by-step guide explaining how build apply these techniques to an existing UI5 application to improve it and add more features. The finished app is a simple supermarket application that allows users to find products and see an 3D model of where these are located in the store. 
 
-![The finished app](/chapters/07-deployment/application.png)
+![The finished app](/chapters/09-deployment/application.png)
 
 The finished application already exists in the [application/](/application) directory, but we want to rebuild it, step-by-step, from scratch. You can compare the finished app with your version in case you have issues along the way.
 
