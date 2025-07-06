@@ -1,5 +1,5 @@
 {
-    "welcomeFile": "/index.html",
+    "welcomeFile": "/index-cdn.html",
     "authenticationMethod": "route",
     "routes": [
         {
