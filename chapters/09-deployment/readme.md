@@ -9,14 +9,14 @@ By the end of this chapter we will have deployed our application to the Applicat
 - [3. Entitle the Application Frontend Service](#3-entitle-the-application-frontend-service)<br>
 - [4. Subscribe to the Application Frontend Service](#4-subscribe-to-the-application-frontend-service)<br>
 - [5. Create role collections and assign them to your user](#5-create-role-collections-and-assign-them-to-your-user)<br>
-- [6. Edit uimodule to use the CDN](#6-edit-uimodule-to-use-the-cdn)<br>
+- [6. Edit the uimodule to use the CDN](#6-edit-the-uimodule-to-use-the-cdn)<br>
 - [7. Deploy the project](#7-deploy-the-project)<br>
 - [8. Access the deployed application](#8-access-the-deployed-application)<br>
 
 ### 1. Get an account on SAP BTP trial and configure SAP Cloud Identity Services
 
-The [Application Frontend Service](https://help.sap.com/docs/application-frontend-service/application-frontend-service/what-is-application-frontend-service) on SAP BTP allows us to deploy frontend applications in two ways: (1) via MTAs (Multi-Target Applications) and (2) via the [`afctl`](https://www.npmjs.com/package/@sap/appfront-cli) command line interface. This offers great flexibility, as we can deploy the whole project via an MTA once, and then hot-deploy only the frontend only if we make changes along the way. It's also possible to exclusively use the `afctl` approach if we wanted to.
-Generally speaking, the Application Frontend service provides a managed [approuter](https://www.npmjs.com/package/@sap/approuter), that's allows us to handle user request and connect to other system, without requiring a separate application.
+The [Application Frontend Service](https://help.sap.com/docs/application-frontend-service/application-frontend-service/what-is-application-frontend-service) on SAP BTP allows us to deploy frontend applications in two ways: (1) via MTAs (Multi-Target Applications) and (2) via the [`afctl`](https://www.npmjs.com/package/@sap/appfront-cli) command line interface. This offers great flexibility, as we can deploy the whole project via an MTA once, and then hot-deploy the frontend only if we make changes along the way. It's also possible to exclusively use the `afctl` approach if we wanted to.
+Generally speaking, the Application Frontend Service provides a managed [approuter](https://www.npmjs.com/package/@sap/approuter), that allows us to handle user request and connect to other systems, without requiring a separate application.
 
 ➡️ Follow these instructions on how to create an account on SAP BTP trial and configure the SAP Cloud Identity Services to use it with the Application Frontend Service: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/setup-in-sap-btp-trial]() 
 
@@ -39,11 +39,11 @@ Generally speaking, the Application Frontend service provides a managed [approut
 
 ### 5. Create role collections and assign them to your user
 
-➡️ Follow these instructions: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/creating-role-collections-and-assigning-them-to-users]()a
+➡️ Follow these instructions: [https://help.sap.com/docs/application-frontend-service/application-frontend-service/creating-role-collections-and-assigning-them-to-users]()
 
-### 6. Edit uimodule to use the CDN
+### 6. Edit the uimodule to use the CDN
 
-Our project is actually already configured to use the Application Frontend Service, as we configured the deployment target during the project generation in [chapter 01](/chapters/01-generating-a-full-stack-project/). We only have to two small tweaks to make it work for our scenario: To make the build result of our application smaller, we want to use consume the UI5 libraries via the CDN, instead of bundling them into our application (our application is already quite big due to the 3D model).
+Our project is actually already configured to use the Application Frontend Service, as we configured the deployment target during the project generation in [chapter 01](/chapters/01-generating-a-full-stack-project/). This configuration is fully functional out-of-the-box. We only have to two small tweaks to make it work for our scenario: To make the build result of our application smaller, we want to use consume the UI5 libraries via the CDN, instead of bundling them into our application (our application is already quite big due to the 3D model).
 
 ➡️ Replace the current `build` script in the `codejam.supermarket/uimodule/package.json` file with the following code:
 
@@ -59,22 +59,22 @@ We removed the `self-contained` option from the build script, as we don't want t
 https://ui5.sap.com/1.108/resources/sap-ui-core.js
 ```
 
-Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of the SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
+Our application now consumes the UI5 libraries from the CDN, which will reduce the size of our application. We opted for an older long term support version of SAPUI5, as we had issues with newer versions at the time of writing (July 2025).
 
 ### 7. Deploy the project
 
-➡️ Make sure you have the Cloud Foundry CLI installed on your machine: [https://developers.sap.com/tutorials/cp-cf-download-cli..html]()
+➡️ Make sure you have the Cloud Foundry CLI installed on your machine: [https://developers.sap.com/tutorials/cp-cf-download-cli.html]()
 
 ➡️ Login to your SAP BTP trial account (you can find your API endpoint on the overview page of your SAP BTP subaccount):
 
 ```bash
-cf login -a <API_ENDPOINT>
+cf login -a <API_ENDPOINT> --sso
 ```
 
 ➡️ Build and deploy your project with the following commands:
 
 ```
-#make sure you are in the codejam.supermarket directory (project root)
+# make sure you are in the codejam.supermarket directory (project root)
 npm run build
 npm run deploy
 ```
