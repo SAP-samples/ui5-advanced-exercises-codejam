@@ -46,7 +46,7 @@ webapp
 		<title>QUnit test suite for the UI5 Application: uimodule</title>
 		<script
 			src="../resources/sap/ui/test/starter/createSuite.js"
-			data-sap-ui-testsuite="test-resources/uimodule/webapp/testsuite.qunit"
+			data-sap-ui-testsuite="test-resources/uimodule/testsuite.qunit"
 			data-sap-ui-resource-roots='{
 				"test-resources.uimodule": "./"
 			}'
