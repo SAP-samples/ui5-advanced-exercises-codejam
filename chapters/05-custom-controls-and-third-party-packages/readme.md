@@ -318,7 +318,7 @@ xmlns:cc="uimodule.ext.control"
 
 ### 10. Add CSS styling
 
-➡️ Create a new file `codejam.supermarket/uimodule/webapp/css/style,css` with the following content:
+➡️ Create a new file `codejam.supermarket/uimodule/webapp/css/style.css` with the following content:
 
 ```css
 .fixed {
