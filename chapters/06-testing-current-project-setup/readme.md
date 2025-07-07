@@ -54,7 +54,7 @@ You might have noticed we started the `uimodule` decoupled from the backend serv
 
 ### 2. Run basic WDI5 test
 
-➡️ Replace the `baseUrl` value in the `codejam.supermarket/uimodule/test/e2e/wdio.conf.ts` file with the following url:
+➡️ Replace the `baseUrl` value in the `codejam.supermarket/uimodule/webapp/test/e2e/wdio.conf.ts` file with the following url:
 
 ```text
 http://localhost:4004/uimodule/index.html
@@ -74,7 +74,7 @@ npm run dev:server
 npm run wdi5
 ```
 
-This will launch the *WDI5* tests defined in the `codejam.supermarket/uimodule/test/e2e/sample.test.ts` file. The file is functionally empty (as the actual test is being skipped) but it's still nice to know how to trigger this built-in test configuration.
+This will launch the *WDI5* tests defined in the `codejam.supermarket/uimodule/webapp/test/e2e/sample.test.ts` file. The file is functionally empty (as the actual test is being skipped) but it's still nice to know how to trigger this built-in test configuration.
 
 ![wdi5 result](wdi5-result.png)
 

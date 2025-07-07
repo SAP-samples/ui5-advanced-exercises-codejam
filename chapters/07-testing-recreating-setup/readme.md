@@ -33,7 +33,7 @@ webapp
    \_ Test.qunit.html
 ```
 
-➡️ Create a new `codejam.supermarket/uimodule/test/testsuite.qunit.html` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/testsuite.qunit.html` file with the following content:
 
 ```html
 <!doctype html>
@@ -46,7 +46,7 @@ webapp
 		<title>QUnit test suite for the UI5 Application: uimodule</title>
 		<script
 			src="../resources/sap/ui/test/starter/createSuite.js"
-			data-sap-ui-testsuite="test-resources/uimodule/testsuite.qunit"
+			data-sap-ui-testsuite="test-resources/uimodule/webapp/testsuite.qunit"
 			data-sap-ui-resource-roots='{
 				"test-resources.uimodule": "./"
 			}'
@@ -60,7 +60,7 @@ webapp
 
 The HTML page requires a test suite which needs to be put aside.
 
-➡️ Create a new  `codejam.supermarket/uimodule/test/testsuite.qunit.ts` file with the following content:
+➡️ Create a new  `codejam.supermarket/uimodule/webapp/test/testsuite.qunit.ts` file with the following content:
 
 ```js
 export default {
@@ -95,7 +95,7 @@ export default {
 
 The test suite defines a test page which is used to execute the tests declared in that file as well.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/Test.qunit.html` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/Test.qunit.html` file with the following content:
 
 ```html
 <!doctype html>
@@ -131,7 +131,7 @@ webapp
 
 The `unitTests.qunit.ts` file lists the individual *QUnit* test pages to be executed via the test suite. We use it to import the modules providing *QUnit* modules and tests.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/unit/unitTests.qunit.ts` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/unit/unitTests.qunit.ts` file with the following content:
 
 ```ts
 // import all QUnit tests here
@@ -142,7 +142,7 @@ import "./controller/Main.qunit";
 
 The `Main.qunit.ts` file now defines *QUnit* modules and tests. A very basic check is to test the availability of a function in the `Main.controller` of the application.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/unit/controller/Main.qunit.ts` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/unit/controller/Main.qunit.ts` file with the following content:
 
 ```ts
 import Main from "uimodule/ext/main/Main.controller";
@@ -156,7 +156,7 @@ QUnit.test("The Main controller class has a onFlyToProduct method", function (as
 
 ### 6. Register the list of unit tests in the test suite
 
-➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
+➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/webapp/test/testsuite.qunit.ts`:
 
 ```ts
 		"unit/unitTests": {
@@ -198,7 +198,7 @@ webapp
 
 The `opaTests.qunit.ts` file lists the individual *OPA* journeys to be executed via the test suite. We use it to import the modules providing *OPA* journeys.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/integration/opaTests.qunit.ts` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/integration/opaTests.qunit.ts` file with the following content:
 
 ```ts
 // import all journeys here
@@ -209,7 +209,7 @@ import "./HelloJourney.qunit";
 
 The `HelloJourney.qunit.ts` implements the test journey to simulate an interaction with the application.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/integration/HelloJourney.qunit.ts` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/webapp/test/integration/HelloJourney.qunit.ts` file with the following content:
 
 ```ts
 import opaTest from "sap/ui/test/opaQunit";
@@ -296,7 +296,7 @@ export default class MainPage extends Opa5 {
 
 ### 11. Register the list of OPA journeys in the test suite
 
-➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/test/testsuite.qunit.ts`:
+➡️ Add the following code to the `tests` section of the `codejam.supermarket/uimodule/webapp/test/testsuite.qunit.ts`:
 
 
 ```ts
@@ -319,7 +319,7 @@ We can now run our *OPA* (integration) tests (together with the unit tests from 
 npm run dev:server
 ```
 
-➡️ Open the test suite at [http://localhost:4004/uimodule/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
+➡️ Open the test suite at [http://localhost:4004/uimodule/webapp/test/testsuite.qunit.html]() to run the *OPA* (integration) and unit tests. You can run all tests at once by pressing **Run All** or click on the individual tests to execute.
 
 ![Qunit runn all](qunit-run-all2.png)
 ![Qunit test results](qunit-results2.png)
@@ -341,7 +341,7 @@ webapp
 
 The `sample.test.ts` is initially a very basic test which does some simple logging. Let's extend the test to do the same as the *OPA* test - checking the existence of the `Page`, the `SearchField` and searching for "Coca" to ensure that only the respective tile is displayed.
 
-➡️ Replace the content of the `codejam.supermarket/uimodule/test/e2e/sample.test.ts` file with the following code:
+➡️ Replace the content of the `codejam.supermarket/uimodule/webapp/test/e2e/sample.test.ts` file with the following code:
 
 ```ts
 /* eslint-disable */
