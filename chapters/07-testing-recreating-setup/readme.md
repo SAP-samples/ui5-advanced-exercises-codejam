@@ -131,7 +131,7 @@ webapp
 
 The `unitTests.qunit.ts` file lists the individual *QUnit* test pages to be executed via the test suite. We use it to import the modules providing *QUnit* modules and tests.
 
-➡️ Create a new `codejam.supermarket/uimodule/test/unit/unitTest.qunit.ts` file with the following content:
+➡️ Create a new `codejam.supermarket/uimodule/test/unit/unitTests.qunit.ts` file with the following content:
 
 ```ts
 // import all QUnit tests here
