@@ -43,7 +43,7 @@ builder:
     - name: ui5-task-zipper
       afterTask: generateVersionInfo
       configuration:
-        onlyZip: true
+        onlyZip: false
         relativePaths: false
         archiveName: uimodule-content
     - name: ui5-tooling-modules-task
