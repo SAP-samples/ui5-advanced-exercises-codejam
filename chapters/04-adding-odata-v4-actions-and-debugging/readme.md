@@ -121,22 +121,20 @@ The application now includes a rating indicator. Feel free to test it and see th
 
 <br>
 
-> The solution is to first use `label.getBinding("text")` to get the composite binding of the label, then use `compositeBinding.getBindings()` to get all property bindings of the composite binding, and finally call `refresh()` on the first binding of the array, which is the `/getAvgRating` function binding. This way, only the average rating is refreshed without affecting the product images. It's not rocket science, but quite the task to work out yourself.
+> The solution is to call the refresh() on the rating indicator context binding instead of the whole model. This way, only the average rating is refreshed without affecting the product images.
 > ```typescript
->   public async onCreateRating(event: RatingIndicator$ChangeEvent) {
->       const ratingIndicator = event.getSource();
->       const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
->       operation.invoke().then(() => {
->           console.log("logging the result...", operation.getBoundContext().getObject());
->           MessageToast.show("Rating submitted.");
->           const label = this.getView()?.byId("avgRating") as Label
->           const compositeBindings = label.getBinding("text") as CompositeBinding
->           compositeBindings.getBindings()[0].refresh()
->           ratingIndicator.setEnabled(false);
->       }).catch((error: Error) => {
->           MessageToast.show(error.message);
->       });
->   }
+>    public onCreateRating(event: RatingIndicator$ChangeEvent) {
+>		const ratingIndicator = event.getSource();
+>		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+>		operation.invoke().then(() => {
+>			Log.info("logging the result...", operation.getBoundContext().getObject());
+>			MessageToast.show("Rating submitted.");
+>			operation.refresh();
+>			ratingIndicator.setEnabled(false);
+>		}).catch(function(error: Error) {
+>			MessageToast.show(error.message);
+>		});
+>	}
 >```
 
 </details>
