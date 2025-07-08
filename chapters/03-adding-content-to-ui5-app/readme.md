@@ -107,7 +107,7 @@ Check out this overview slide created by [Peter Muessig](https://github.com/pete
 
 <br>
 
->
+> The `Control$Event` syntax is how UI5 exposes types for events of a control. We can use these types so that the event parameters are also typed and available in the IDE.
 
 </details>
 
