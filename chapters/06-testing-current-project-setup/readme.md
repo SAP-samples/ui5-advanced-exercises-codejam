@@ -60,7 +60,7 @@ You might have noticed we started the `uimodule` decoupled from the backend serv
 http://localhost:4004/uimodule/index.html
 ```
 
-> ➡️ In case you are using the SAP Business Application Studio, also follow these instruction to configure `wdi5` correctly: [wdi5 documentation](https://ui5-community.github.io/wdi5/#/usage?id=using-bas-with-wdi5).
+> ➡️ In case you are using the SAP Business Application Studio, also follow these instructions to configure `wdi5` correctly: [wdi5 documentation](https://ui5-community.github.io/wdi5/#/usage?id=using-bas-with-wdi5).
 
 ➡️ Start the project as usual from the `codejam.supermarket/` directory:
 
