@@ -14,7 +14,9 @@ By the end of this chapter we will have prepared our development environment so 
 
 To be able to follow the instructions in this repository you need to fulfill ***one*** of the following requirements:
 
-- **Option 1:** You have access to an instance of the SAP Business Application Studio with the role collection `Business_Application_Studio_Developer` assigned to you in the SAP Business Technology Platform Cockpit. Create a new dev space of type `Full Stack Cloud Application` to get started.
+- **Option 1:** You have access to an instance of the SAP Business Application Studio with the role collection `Business_Application_Studio_Developer` assigned to you in the SAP Business Technology Platform Cockpit. Create a new dev space of type `Full Stack Cloud Application` to get started. Make sure to also check the `Headless Testing Framework` option when creating the dev space, as this will install the necessary tools for running `wdi5` tests.
+
+![Business Application Studio](./bas.png)
 
 > If you don't have access to the SAP Business Application Studio yet, check this tutorial on [how to get a free account on SAP BTP trial](https://developers.sap.com/tutorials/hcp-create-trial-account.html), from where you can [subscribe to the SAP Business Application Studio](https://developers.sap.com/tutorials/appstudio-onboarding.html).
 
