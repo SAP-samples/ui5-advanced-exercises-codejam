@@ -3,9 +3,8 @@ import cds from "@sap/cds"
 export class CatalogService extends cds.ApplicationService {
 	async init() {
 		this.on("getAvgRating", async () => {
-			const ratings = await SELECT("rating").from("Ratings")
-			const avg = ratings.map(r => r.rating).reduce((a, b) => a + b) / ratings.length
-			return avg.toFixed(2)
+				const { avg } = await SELECT.one`avg(rating) as avg`.from("Ratings")
+				return Number(avg).toFixed(2)
 		})
 
 		this.on("createRating", async ({ data: { rating } }) => {

@@ -3,7 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:cc="uimodule.ext.control"
-	controllerName="uimodule.ext.view.Main.controller">
+	controllerName="uimodule.ext.view.Main">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
 			<VBox alignItems="Center">

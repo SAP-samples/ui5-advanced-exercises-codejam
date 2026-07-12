@@ -4,7 +4,7 @@ By the end of this chapter we will have built a custom control that uses a third
 
 ## Steps
 
-- [1. Move 3D model into the application](#1-copy-3d-model-into-the-application)<br>
+- [1. Copy 3D model into the application](#1-copy-3d-model-into-the-application)<br>
 - [2. Install required dependencies](#2-install-required-dependencies)<br>
 - [3. Add configuration to `ui5.yaml`](#3-add-configuration-to-ui5yaml)<br>
 - [4. Create custom control skeleton](#4-create-custom-control-skeleton)<br>
@@ -302,7 +302,7 @@ The renderer is responsible for creating the HTML elements that make up our cust
 
 Now that we have our custom control ready, we can use it in our UI5 app.
 
-➡️ Add the following code to the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file (it doesn't really matter where, as we will set a fixed position in the next step):
+➡️ Add the following code to the `codejam.supermarket/uimodule/webapp/ext/view/Main.view.xml` file (it doesn't really matter where, as we will set a fixed position in the next step):
 
 ```xml
 			<FlexBox class="fixed">
