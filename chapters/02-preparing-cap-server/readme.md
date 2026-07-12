@@ -42,7 +42,7 @@ entity Ratings: cuid, managed {
 
 ### 2. Add sample data
 
-We will add sample data to our CAP server, so that we can test the UI5 app later on.
+We will add sample data to our CAP server, so we can properly test the UI5 app later on.
 
 ➡️ Delete all files inside the `codejam.supermarket/server/db/data/` directory and create the following new files inside that directory (naming is important!):
 
