@@ -12,7 +12,7 @@ By the end of this chapter we will have added basic features to our UI5 applicat
 
 We want to build an app that allow users to browse and search a list of products in a supermarket. For that we need some basic UI5 controls, specifically for the title, search field and list of products.
 
-➡️ Replace the current content of the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file with the following code:
+➡️ Replace the current content of the `codejam.supermarket/uimodule/webapp/ext/view/Main.view.xml` file with the following code:
 
 ```xml
 <mvc:View

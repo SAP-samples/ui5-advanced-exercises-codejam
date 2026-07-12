@@ -13,7 +13,7 @@ By the end of this chapter we will have added and invoked an OData V4 action bin
 
 We want to add a rating indicator to our XML view, that allows user to rate the application.
 
-➡️ Add the following code to the end of the outer `<VBox />` element in the `codejam.supermarket/uimodule/webapp/ext/main/Main.view.xml` file:
+➡️ Add the following code to the end of the outer `<VBox />` element in the `codejam.supermarket/uimodule/webapp/ext/view/Main.view.xml` file:
 
 ```xml
 			<VBox alignItems="Center">

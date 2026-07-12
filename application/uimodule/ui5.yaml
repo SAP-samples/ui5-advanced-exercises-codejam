@@ -1,4 +1,4 @@
-specVersion: '3.1'
+specVersion: '4.0'
 metadata:
   name: uimodule
 type: application
@@ -7,7 +7,7 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false
+        ignoreCertErrors: false
         backend:
           - path: /odata/v4/catalog/
             url: http://localhost:4004
@@ -17,6 +17,15 @@ server:
         port: 35729
         path: webapp
         delay: 300
+    - name: fiori-tools-preview
+      afterMiddleware: fiori-tools-appreload
+      configuration:
+        flp:
+          theme: sap_horizon
+          path: test/flpSandbox.html
+        test:
+          - framework: Qunit
+          - framework: OPA5
     - name: ui5-tooling-transpile-middleware
       afterMiddleware: compression
       configuration:
@@ -27,12 +36,11 @@ server:
           - /Component-preload.js
     - name: ui5-tooling-modules-middleware
       afterMiddleware: ui5-tooling-transpile-middleware
-    - name: fiori-tools-preview
-      afterMiddleware: compression
-      configuration:
-        test:
-          - framework: Qunit
 builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
   customTasks:
     - name: ui5-tooling-transpile-task
       afterTask: replaceVersion

@@ -16,27 +16,27 @@ Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": 25801978,
-  "title": "title-25801978",
-  "author": "author-25801978"
+  "ID": 102581,
+  "title": "title-102581",
+  "author": "author-102581"
 }
 
 
 ### Books
 # @name Books_PATCH
-PATCH {{server}}/odata/v4/catalog/Books/25801978
+PATCH {{server}}/odata/v4/catalog/Books/102581
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": 25801978,
-  "title": "title-25801978",
-  "author": "author-25801978"
+  "ID": 102581,
+  "title": "title-102581",
+  "author": "author-102581"
 }
 
 
 ### Books
 # @name Books_DELETE
-DELETE {{server}}/odata/v4/catalog/Books/25801978
+DELETE {{server}}/odata/v4/catalog/Books/102581
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}

@@ -42,7 +42,7 @@ entity Ratings: cuid, managed {
 
 ### 2. Add sample data
 
-We will add sample data to our CAP server, so that we can test the UI5 app later on.
+We will add sample data to our CAP server, so we can properly test the UI5 app later on.
 
 ➡️ Delete all files inside the `codejam.supermarket/server/db/data/` directory and create the following new files inside that directory (naming is important!):
 
@@ -100,9 +100,8 @@ import cds from "@sap/cds"
 export class CatalogService extends cds.ApplicationService {
 	async init() {
 		this.on("getAvgRating", async () => {
-			const ratings = await SELECT("rating").from("Ratings")
-			const avg = ratings.map(r => r.rating).reduce((a, b) => a + b) / ratings.length
-			return avg.toFixed(2)
+				const { avg } = await SELECT.one`avg(rating) as avg`.from("Ratings")
+				return Number(avg).toFixed(2)
 		})
 
 		this.on("createRating", async ({ data: { rating } }) => {

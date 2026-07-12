@@ -1,5 +1,5 @@
 {
-  "_version": "1.60.0",
+  "_version": "1.86.0",
   "sap.app": {
     "id": "uimodule",
     "type": "application",
@@ -49,7 +49,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.fe.core": {}
       }
     },
     "contentDensities": {
