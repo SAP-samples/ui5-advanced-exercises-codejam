@@ -4,17 +4,17 @@ import Filter from "sap/ui/model/Filter";
 import FilterOperator from "sap/ui/model/FilterOperator";
 import HBox from "sap/m/HBox";
 import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
-import { RatingIndicator$ChangeEvent } from "sap/m/RatingIndicator";
+import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
+import JSONModel from "sap/ui/model/json/JSONModel";
 import MessageToast from "sap/m/MessageToast";
+import { RatingIndicator$ChangeEvent } from "sap/m/RatingIndicator";
 import ODataContextBinding from "sap/ui/model/odata/v4/ODataContextBinding";
 import Label from "sap/m/Label";
 import CompositeBinding from "sap/ui/model/CompositeBinding";
 import ODataPropertyBinding from "sap/ui/model/odata/v4/ODataPropertyBinding";
 import { Button$PressEvent } from "sap/m/Button";
-import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
 import { Table$RowPressEvent } from "sap/fe/macros/Table";
 import Context from "sap/ui/model/odata/v4/Context";
-import JSONModel from "sap/ui/model/json/JSONModel";
 import Supermarket from "../control/Supermarket";
 
 /**
@@ -58,7 +58,6 @@ export default class Main extends Controller {
 	// public onExit(): void {
 	//
 	//  }
-	//
 	public onSearchProducts(event: SearchField$LiveChangeEvent): void {
 		const filter = [];
 		const query = event.getParameter("newValue");
@@ -83,22 +82,22 @@ export default class Main extends Controller {
 		MessageToast.show(`Switched to ${mode} view.`);
 	}
 
-	public onCreateRating(event: RatingIndicator$ChangeEvent) {
-		const ratingIndicator = event.getSource();
-		const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
-		operation.invoke().then(() => {
-			console.log("logging the result...", operation.getBoundContext().getObject());
-			MessageToast.show("Rating submitted.");
-			const label = this.getView()?.byId("avgRating") as Label;
-			const compositeBindings = label.getBinding("text") as CompositeBinding;
-			(compositeBindings.getBindings()[0] as ODataPropertyBinding).refresh();
-			ratingIndicator.setEnabled(false);
-		}).catch((error: Error) => {
-			MessageToast.show(error.message);
-		});
-	}
+  public onCreateRating(event: RatingIndicator$ChangeEvent) {
+      const ratingIndicator = event.getSource();
+      const operation = ratingIndicator.getObjectBinding() as ODataContextBinding;
+      operation.invoke().then(() => {
+          console.log("logging the result...", operation.getBoundContext().getObject());
+          MessageToast.show("Rating submitted.");
+          const label = this.getView()?.byId("avgRating") as Label;
+          const compositeBindings = label.getBinding("text") as CompositeBinding;
+          (compositeBindings.getBindings()[0] as ODataPropertyBinding).refresh();
+          ratingIndicator.setEnabled(false);
+      }).catch((error: Error) => {
+          MessageToast.show(error.message);
+      });
+  }
 
-	public onFlyToProduct(event: Button$PressEvent): void {
+		public onTilePress(event: Button$PressEvent): void {
 		const context = event.getSource().getBindingContext() as Context;
 		this.flyToProduct(context);
 	}
@@ -121,5 +120,4 @@ export default class Main extends Controller {
 			supermarket.setCameraPosition(JSON.parse(position), { backToStart: true });
 		});
 	}
-
 }

@@ -44,7 +44,7 @@ We want to build an app that allow users to browse and search a list of products
 					<GenericTile
 						header="{title}"
 						subheader="{category_name}"
-						press=".onFlyToProduct"
+						press=".onTilePress"
 						class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
 						<TileContent>
 							<ImageContent src="{image}" />
@@ -130,7 +130,7 @@ The application now contains a list of products and the search field. Feel free 
 ## Further question to discuss
 
 <details>
-<summary>Do you know why our `main` view and controller are nested inside an `ext/` directory, instead of using the usual freestyle UI5 structure of `webapp/view/` and `webapp/controller/`? (The answer is in the question already.)</summary>
+<summary>Do you know why our <code>main</code> view and controller are nested inside an <code>ext/</code> directory, instead of using the usual freestyle UI5 structure of <code>webapp/view/</code> and <code>webapp/controller/</code>? (The answer is in the question already.)</summary>
 
 <br>
 

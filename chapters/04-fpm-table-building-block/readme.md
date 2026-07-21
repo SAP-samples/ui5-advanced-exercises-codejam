@@ -118,7 +118,7 @@ xmlns:macros="sap.fe.macros"
 				</VBox>
 ```
 
-The `contextPath="/Products"` tells the building block which entity set to bind to, and `metaPath="@com.sap.vocabularies.UI.v1.LineItem"` points it at the annotation we created in step 1. That is all the building block needs to render a full table - notice how little markup this is compared to the freestyle `HBox`/`GenericTile` list. The `rowPress` event points at an `onRowPress` handler that we will implement in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/), together with the tile's `onFlyToProduct` handler, to navigate the 3D model when a product is selected. The visibility of both the tile list and the table is controlled by an [expression binding](https://ui5.sap.com/#/topic/daf6852a04b44d118963968a1239d2c0) against a `view` model that we will set up in the next step.
+The `contextPath="/Products"` tells the building block which entity set to bind to, and `metaPath="@com.sap.vocabularies.UI.v1.LineItem"` points it at the annotation we created in step 1. That is all the building block needs to render a full table - notice how little markup this is compared to the freestyle `HBox`/`GenericTile` list. The `rowPress` event points at an `onRowPress` handler that we will implement in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/), together with the tile's `onTilePress` handler, to navigate the 3D model when a product is selected. The visibility of both the tile list and the table is controlled by an [expression binding](https://ui5.sap.com/#/topic/daf6852a04b44d118963968a1239d2c0) against a `view` model that we will set up in the next step.
 
 <details>
 <summary>Why is the <code>macros:Table</code> wrapped in a <code>VBox</code>? 💬</summary>
@@ -160,6 +160,7 @@ The view references a `view` model (for the current mode) and an `onToggleView` 
 ```typescript
 import { SegmentedButton$SelectionChangeEvent } from "sap/m/SegmentedButton";
 import JSONModel from "sap/ui/model/json/JSONModel";
+import MessageToast from "sap/m/MessageToast";
 ```
 
 We set up a small named JSON model (`view`) with a `mode` property that defaults to `"list"`. The `SegmentedButton`'s `selectedKey` is two-way bound to `view>/mode`, so selecting a segment updates the model, and the `visible` expression bindings on the tile list and the table react automatically. The `onToggleView` handler itself is not strictly required for the toggle to work (the binding does the job), but it is a convenient place to react to the switch - here we simply show a message toast.
@@ -182,6 +183,8 @@ npm run dev:server
 ```
 
 The application now shows a segmented button below the search field. It starts in "list" mode with the familiar product tiles. Switch to "table" mode and you will see the `Table` building block, rendered entirely from the `UI.LineItem` annotation, with the columns Product, Category, and Stock - plus a built-in search field and personalization options in the table toolbar. Switch back to "list" mode to return to the tiles. Both the tiles and the table rows will fly the 3D camera to the selected product once you have built the custom control and its handlers in [Chapter 06](/chapters/06-custom-controls-and-third-party-packages/).
+
+![application with segmented button](./application.png)
 
 ## Further question to discuss
 

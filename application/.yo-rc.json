@@ -9,7 +9,7 @@
     "platform": "Application Frontend Service",
     "ui5Libs": "Local resources (SAPUI5)",
     "newDir": true,
-    "initRepo": true,
+    "initRepo": false,
     "projectId": "codejam.supermarket",
     "uimodules": [
       "uimodule"

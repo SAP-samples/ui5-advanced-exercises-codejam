@@ -68,7 +68,6 @@ The OData action and its parameters are now bound to the rating indicator, but s
 
 ```typescript
 import { RatingIndicator$ChangeEvent } from "sap/m/RatingIndicator";
-import MessageToast from "sap/m/MessageToast";
 import ODataContextBinding from "sap/ui/model/odata/v4/ODataContextBinding";
 ```
 

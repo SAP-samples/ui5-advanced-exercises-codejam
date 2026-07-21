@@ -2,8 +2,8 @@
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
-	xmlns:cc="uimodule.ext.control"
 	xmlns:macros="sap.fe.macros"
+	xmlns:cc="uimodule.ext.control"
 	controllerName="uimodule.ext.view.Main">
 	<Page id="Main" showHeader="false" class="sapUiContentPadding">
 		<VBox justifyContent="SpaceBetween" width="100%" height="100%">
@@ -32,15 +32,15 @@
 				</SegmentedButton>
 				<HBox
 					id="products"
-					visible="{= ${view>/mode} === 'list' }"
 					items="{path: '/Products', parameters: { '$select': '*' }}"
 					class="sapUiMediumMarginTop"
 					wrap="Wrap"
-					justifyContent="Center">
+					justifyContent="Center"
+					visible="{= ${view>/mode} === 'list' }">
 					<GenericTile
 						header="{title}"
 						subheader="{category_name}"
-						press=".onFlyToProduct"
+						press=".onTilePress"
 						class="sapUiTinyMarginBegin sapUiTinyMarginBottom">
 						<TileContent>
 							<ImageContent src="{image}" />

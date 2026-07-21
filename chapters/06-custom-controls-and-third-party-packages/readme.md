@@ -354,7 +354,7 @@ This `.fixed` CSS class is used on the `FlexBox` that wraps around our custom co
 ➡️ Add the following methods to the `codejam.supermarket/uimodule/webapp/ext/view/Main.controller.ts` file:
 
 ```typescript
-	public onFlyToProduct(event: Button$PressEvent): void {
+	public onTilePress(event: Button$PressEvent): void {
 		const context = event.getSource().getBindingContext() as Context;
 		this.flyToProduct(context);
 	}
@@ -388,7 +388,7 @@ import Context from "sap/ui/model/odata/v4/Context";
 import Supermarket from "../control/Supermarket";
 ```
 
-We wired two entry points to the same behavior. `onFlyToProduct` is invoked on the `press` event of the product tiles, and `onRowPress` on the `rowPress` event of the FPM table we added in [Chapter 04](/chapters/04-fpm-table-building-block/) - both check the XML view. Each obtains the binding context of the selected product and hands it to a shared private `flyToProduct` method.
+We wired two entry points to the same behavior. `onTilePress` is invoked on the `press` event of the product tiles, and `onRowPress` on the `rowPress` event of the FPM table we added in [Chapter 04](/chapters/04-fpm-table-building-block/) - both check the XML view. Each obtains the binding context of the selected product and hands it to a shared private `flyToProduct` method.
 
 There we use the context to fly to the product in the 3D model: we `expand` the custom control and call its `setCameraPosition` method with the product's position. Note that we use `context.requestProperty("position")` instead of reading the property synchronously. This is important for the table: the `Table` building block only requests the columns defined in the annotation (`title`, `category_name`, `stock`), so `position` is not loaded up front. `requestProperty` fetches such a ["late property"](https://ui5.sap.com/#/api/sap.ui.model.odata.v4.Context%23methods/requestProperty) on demand and returns a promise - which also works fine for the tiles, whose binding requests all properties anyway.
 

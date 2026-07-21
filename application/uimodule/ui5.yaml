@@ -62,7 +62,7 @@ framework:
     - name: sap.ui.core
     - name: themelib_sap_horizon
     - name: sap.fe.templates
-    - name: sap.fe.macros
     - name: sap.ui.export
+    - name: sap.fe.macros
   name: SAPUI5
   version: 1.148.3

@@ -23,7 +23,8 @@ export default class MainPage extends Opa5 {
 			id: "searchField",
 			viewName,
 			actions: new EnterText({
-				text: "no sugar"
+				text: "no sugar",
+				clearTextFirst: false
 			}),
 			errorMessage: "Did not find the search field on the Main view and could not enter text"
 		});
